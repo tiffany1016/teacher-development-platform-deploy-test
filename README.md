@@ -37,11 +37,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## repo maintain
 ```bash
+# add branch
 git checkout -b <new branch name> <existing branch>
 
+# switch branch
 git checkout <your branch>
-git fetch upstream
-git rebase upstream/main
+# fetch from github
+git fetch origin
+# update (auto merge)
+git rebase origin/main
 
 git add .
 git commit -m "commit message"
