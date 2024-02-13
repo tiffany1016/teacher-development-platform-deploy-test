@@ -3,9 +3,9 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 
 export default function UsernameInput() {
   return (
-    <div className='flex items-center p-12'>
+    <div className='flex items-center justify-center'>
         <TextField id="standard-basic" label="Username" variant="standard" />
-        <ArrowCircleRightOutlinedIcon />
+        <ArrowCircleRightOutlinedIcon className='mt-3 ml-2' />
     </div>
   );
 }
