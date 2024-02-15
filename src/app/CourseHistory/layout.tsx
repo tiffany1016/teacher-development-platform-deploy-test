@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 type Props = {
   children: React.ReactNode;
 };
@@ -6,7 +5,6 @@ type Props = {
 function Layout({ children }: Props) {
   return (
     <>
-      <Header username={"Susan"}/>
       <div className="w-full h-full">
         {children}
       </div>
