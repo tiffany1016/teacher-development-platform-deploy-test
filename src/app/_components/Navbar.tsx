@@ -38,7 +38,7 @@ async function Navbar() {
                 type={"submit"}
                 className="flex items-center gap-1.5 rounded-sm hover:opacity-80 py-1 px-2 font-semibold"
               >
-                登出
+                {session?.user?.username} 登出
               </button>
             </Link>
           </div>

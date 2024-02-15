@@ -20,7 +20,6 @@ export const {
           username: username,
           email: email,
           mobile: mobile,
-
         },
       };
     },
