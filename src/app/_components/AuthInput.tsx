@@ -15,7 +15,7 @@ type Props = {
 function AuthInput({ label, type, value, placeholder, setValue }: Props) {
   return (
     <div className="w-full">
-      <div className="py-0.5 text-center text-base font-semibold peer-disabled:cursor-not-allowed">{label}</div>
+      {label !== "" && <div className="py-0.5 text-center text-base font-semibold peer-disabled:cursor-not-allowed">{label}</div>}
       <Input
         type={type}
         value={value}

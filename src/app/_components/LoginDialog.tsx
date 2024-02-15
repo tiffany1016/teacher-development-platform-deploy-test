@@ -10,6 +10,7 @@ import { publicEnv } from "@/lib/env/public";
 import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
 import { INDIGO, ORANGE } from "@/lib/constants";
+import ForgotEmailDialog from "./ForgotEmailDialog";
 
 function LoginDialog() {
   const [email, setEmail] = useState<string>("");
@@ -51,9 +52,7 @@ function LoginDialog() {
             />
             <span className="flex text-xs self-center py-1">
               忘記&nbsp;
-              <div className="cursor-pointer hover:underline" style={{color: ORANGE}}>
-                帳號
-              </div>
+              <ForgotEmailDialog />
               /
               <div className="cursor-pointer hover:underline" style={{color: ORANGE}}>
                 密碼
