@@ -13,7 +13,7 @@ export default function Header({
 }: HeaderProps) {
   return(
     <>
-      <div className="flex bg-[#013E6E] w-full h-16 fixed top-0 items-center">
+      <div className="flex bg-[#013E6E] w-full h-16 top-0 items-center">
         <div className="flex flex-row h-full items-center gap-2 w-1/4">
           <div className="relative h-8 w-8 ml-10">
             <Image
