@@ -1,6 +1,5 @@
 import { getCourse } from "./actions";
 import {Button} from "@/components/ui/button";
-import Header from "@/components/Header";
 async function CourseHistory() {
   const username="Susan";
   const course=await getCourse(username);
