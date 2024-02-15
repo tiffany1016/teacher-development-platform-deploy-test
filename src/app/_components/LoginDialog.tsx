@@ -9,7 +9,7 @@ import Image from "next/image"
 import { publicEnv } from "@/lib/env/public";
 import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
-import { Label } from "@/components/ui/label";
+import { INDIGO, ORANGE } from "@/lib/constants";
 
 function LoginDialog() {
   const [email, setEmail] = useState<string>("");
@@ -27,30 +27,45 @@ function LoginDialog() {
   return(
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 text-white rounded-sm hover:opacity-80 py-1 px-2 font-semibold"><MdLogin size={20} /><div>登入</div></button>
+        <button className="flex items-center gap-2 text-white rounded-sm hover:opacity-80 px-2 font-semibold"><MdLogin size={20} /><div>登入</div></button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>登入</DialogTitle>
-        </DialogHeader>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-          <AuthInput
-            label="Email"
-            type="email"
-            value={email}
-            setValue={setEmail}
-          />
-          <AuthInput
-            label="Password"
-            type="password"
-            value={password}
-            setValue={setPassword}
-          />
-          <div className="pt-1"></div>
-          <Button type="submit" className="w-full">
-            Sign In
-          </Button>
-        </form>
+        {/* <DialogHeader>
+          <DialogTitle className="text-center">登入</DialogTitle>
+        </DialogHeader> */}
+        <div className="pt-3">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+            <AuthInput
+              label="帳號"
+              type="email"
+              value={email}
+              placeholder="電子郵件"
+              setValue={setEmail}
+            />
+            <AuthInput
+              label="密碼"
+              type="password"
+              value={password}
+              placeholder="預設為手機號碼"
+              setValue={setPassword}
+            />
+            <span className="flex text-xs self-center py-1">
+              忘記&nbsp;
+              <div className="cursor-pointer hover:underline" style={{color: ORANGE}}>
+                帳號
+              </div>
+              /
+              <div className="cursor-pointer hover:underline" style={{color: ORANGE}}>
+                密碼
+              </div>
+            </span>
+            <div className="pt-2"></div>
+            <Button type="submit" className="w-full rounded-full font-semibold text-base" style={{backgroundColor: INDIGO}}>
+              登入
+            </Button>
+          </form>
+        </div>
+        
       </DialogContent>
     </Dialog>
   );
