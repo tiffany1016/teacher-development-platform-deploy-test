@@ -24,7 +24,6 @@ export default CredentialsProvider({
     }
     const userEmail = validatedCredentials.email;
     const userPassword = validatedCredentials.password;
-    console.log(validatedCredentials);
 
     // Sign in
     // const isValid = await bcrypt.compare(password, existedUser.hashedPassword);

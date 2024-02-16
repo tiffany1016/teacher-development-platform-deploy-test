@@ -10,7 +10,6 @@ import UserAvatar from "./UserAvatar";
 async function Navbar() {
   const session = await auth();
   const notAuth = (!session || !session?.user?.email);
-  console.log(session?.user)
   return (
     <nav style={{ backgroundColor: INDIGO }} className="fixed flex justify-between items-center w-full max-w-8xl px-10 py-3 border-b-2 border-gray-100d">
       <div className="flex gap-3">
