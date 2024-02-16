@@ -62,7 +62,7 @@ export default function CourseDialog({courseInfo,color}:CourseDialogProps) {
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>setOpen(false)} className='mb-1 mr-1'>Close</Button>
+          <Button style={{backgroundColor:INDIGO}} onClick={()=>setOpen(false)} className='mb-1 mr-1'>Close</Button>
         </DialogActions>
       </Dialog>
     </>

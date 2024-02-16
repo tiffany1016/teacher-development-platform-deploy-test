@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { INDIGO,PINK } from "@/lib/constants";
-import CourseDialog from "@/app/_components/CourseDialog";
+import CourseDialog from "./CourseDialog";
 type CourseToggleProps={
   topic:string,
   courses:{name:string,series:string,teacher:string,type:string,topic:string,time:Date}[],

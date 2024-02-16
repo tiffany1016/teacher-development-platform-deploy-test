@@ -1,7 +1,7 @@
-import { getCourse } from "./actions";
+import { getCourse } from "./components/actions";
 import {Button} from "@/components/ui/button";
 import { PINK,ORANGE,GREEN,TIFFANY } from "@/lib/constants";
-import CourseToggle from "@/app/_components/CourseToggle";
+import CourseToggle from "./components/CourseToggle";
 async function CourseHistory() {
   const username="Susan";
   const courses=await getCourse(username);
