@@ -1,5 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import { authSchema } from "@/validators/auth";
+import { USERS } from "../constants";
 
 // import bcrypt from "bcryptjs";
 
@@ -21,22 +22,32 @@ export default CredentialsProvider({
       console.log("Wrong credentials. Try again.");
       return null;
     }
-    const { email, password } = validatedCredentials;
-    const existedUser = true;
-    if (!existedUser) {
-      console.log("invalid email");
-      return null;
-    }
+    const userEmail = validatedCredentials.email;
+    const userPassword = validatedCredentials.password;
+    console.log(validatedCredentials);
 
     // Sign in
     // const isValid = await bcrypt.compare(password, existedUser.hashedPassword);
-    const isValid = (password === "1234");
+    const userIndex = USERS.findIndex(({ email }) => email === userEmail);
+    const existedUser = userIndex !== -1;
+    if (!existedUser) {
+      console.log("invalid email");
+      return {
+        email: null,
+      };
+    }
+    const user = USERS[userIndex];
+    
+    const isValid = (user.password === userPassword);
+
     if (!isValid) {
       console.log("Wrong password. Try again.");
-      return null;
+      return {
+        email: null,
+      };
     }
     return {
-      email: email,
+      email: userEmail,
     };
   },
 });

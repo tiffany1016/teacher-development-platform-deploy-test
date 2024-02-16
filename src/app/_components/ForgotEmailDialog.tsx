@@ -11,14 +11,21 @@ import { Input } from "@/components/ui/input"
 import { publicEnv } from "@/lib/env/public";
 import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
-import { INDIGO, ORANGE } from "@/lib/constants";
+import { INDIGO, ORANGE, USERS } from "@/lib/constants";
 
 function ForgotEmailDialog() {
-  const [mobile, setMobile] = useState<string>("");
+  const [userMobile, setUserMobile] = useState<string>("");
   const [hint, setHint] = useState<string>("");
 
   const handleSubmit = () => {
-    const email = "myemail@gmail.com";
+    const userIndex = USERS.findIndex(({ mobile }) => mobile === userMobile);
+    const existedUser = userIndex !== -1;
+    if (!existedUser) {
+      setHint("手機號碼錯誤");
+      console.log("invalid phone number");
+      return;
+    }
+    const email = USERS[userIndex].email;
     const accountLength = email.split("@")[0].length;
     setHint("您的帳號為 "+email.substring(0,2)+"*".repeat(accountLength-4)+email.substring(accountLength-2));
   };
@@ -41,9 +48,9 @@ function ForgotEmailDialog() {
               <AuthInput
                 label=""
                 type="text"
-                value={mobile}
+                value={userMobile}
                 placeholder="09xxxxxxxx"
-                setValue={setMobile}
+                setValue={setUserMobile}
               />
               <Button onClick={() => {handleSubmit()}} className="rounded-full font-semibold text-sm" style={{backgroundColor: INDIGO}}>
                 確認
