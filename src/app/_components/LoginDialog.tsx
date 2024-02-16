@@ -11,6 +11,7 @@ import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
 import { INDIGO, ORANGE } from "@/lib/constants";
 import ForgotEmailDialog from "./ForgotEmailDialog";
+import ForgotPasswordDialog from "./ForgotPasswordDialog";
 
 function LoginDialog() {
   const [email, setEmail] = useState<string>("");
@@ -54,9 +55,7 @@ function LoginDialog() {
               忘記&nbsp;
               <ForgotEmailDialog />
               /
-              <div className="cursor-pointer hover:underline" style={{color: ORANGE}}>
-                密碼
-              </div>
+              <ForgotPasswordDialog />
             </span>
             <div className="pt-2"></div>
             <Button type="submit" className="w-full rounded-full font-semibold text-base" style={{backgroundColor: INDIGO}}>
