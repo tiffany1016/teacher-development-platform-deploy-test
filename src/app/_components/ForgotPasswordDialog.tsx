@@ -158,7 +158,7 @@ function ForgotPasswordDialog() {
               style={{backgroundColor: INDIGO}}
               onClick={() => {handleUpdatePassword()}}
             >
-              更新密碼
+              修改密碼
             </Button>
           </div>
         }
