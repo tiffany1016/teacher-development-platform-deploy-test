@@ -13,6 +13,7 @@ import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
 import { GREEN, INDIGO, ORANGE, PINK, USERS } from "@/lib/constants";
 import { auth } from "@/lib/auth";
+import { generateCode } from "@/lib/utils";
 
 function ForgotPasswordDialog() {
   const [userEmail, setUserEmail] = useState<string>("");
@@ -39,6 +40,9 @@ function ForgotPasswordDialog() {
     }
     setEmailHint(sent);
     setGetCode(true);
+
+    setCode(generateCode(6));
+    console.log(generateCode(6));
   };
   const handleVerifyCode = () => {
     if (codeInput !== code) {
@@ -82,7 +86,7 @@ function ForgotPasswordDialog() {
                 type="email"
                 value={userEmail}
                 placeholder="電子郵件"
-                className="rounded-3xl border w-full"
+                className="rounded-3xl border w-72"
                 style={{borderColor: INDIGO}}
                 onChange={(e) => {
                   setUserEmail(e.target.value);
