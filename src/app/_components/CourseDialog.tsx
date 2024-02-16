@@ -1,20 +1,28 @@
-import Button from '@mui/material/Button';
+"use client";
+import { useState } from "react";
+import {Button} from "@/components/ui/button";
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { INDIGO } from "@/lib/constants";
 type CourseDialogProps={
-  open:boolean,
-  onClose:()=>void,
+  color:string,
   courseInfo:{name:string,series:string,teacher:string,type:string,topic:string,time:Date},
 }
-export default function CourseDialog({open,onClose,courseInfo}:CourseDialogProps) {
+export default function CourseDialog({courseInfo,color}:CourseDialogProps) {
+  const [open,setOpen]=useState(false);
+  const handleClick=()=>{
+    setOpen(true);
+  }
   return (
     <>
+      <Button style={{backgroundColor:color}} onClick={handleClick}>
+        {courseInfo.name}
+      </Button>
       <Dialog
         open={open}
-        onClose={onClose}
+        onClose={()=>setOpen(false)}
         fullWidth={true}
         maxWidth="md"
         PaperProps={{
@@ -27,6 +35,7 @@ export default function CourseDialog({open,onClose,courseInfo}:CourseDialogProps
       >
         <DialogTitle>
           <p className='text-xl text-black font-bold'>課程詳細資訊</p>
+          <p>{courseInfo.name}</p>
         </DialogTitle>
         <DialogContent>
           <div className='grid grid-flow-row grid-cols-2 gap-2'>
@@ -53,7 +62,7 @@ export default function CourseDialog({open,onClose,courseInfo}:CourseDialogProps
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=>onClose()} className='mb-1 mr-1'>Close</Button>
+          <Button onClick={()=>setOpen(false)} className='mb-1 mr-1'>Close</Button>
         </DialogActions>
       </Dialog>
     </>
