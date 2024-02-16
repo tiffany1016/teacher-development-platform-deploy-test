@@ -47,6 +47,13 @@ git fetch origin
 # update (auto merge)
 git rebase origin/main
 
+# merge branch A to B
+git checkout B
+git merge A
+
+# pull all branches on github
+git pull --all
+
 git add .
 git commit -m "commit message"
 git push origin <to be pushed branch>
