@@ -17,43 +17,48 @@ async function CourseHistory() {
         </Button>
       </div>
       <div className="flex w-5/6 h-full justify-self-center mt-8 gap-4">
-        <div className="w-1/4 grid justify-items-center gap-2">
-          <div style={{backgroundColor:PINK}} className="grid w-full h-10 rounded-full justify-items-center content-center">
+        <div className="w-1/4 grid justify-items-center gap-2 content-start">
+          <div style={{backgroundColor:PINK}} className="grid w-full h-10 rounded-full justify-items-center content-center mb-1">
             <p className="text-white text-xl">領導力</p>
           </div>
           <CourseToggle 
-            topic={"主題一"} 
-            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題一"))}
+            topic={"主題A1"} 
+            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題A1"))}
             color={PINK}
-          />   
+          />
+          <CourseToggle 
+            topic={"主題A2"} 
+            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題A2"))}
+            color={PINK}
+          />
         </div>
-        <div className="w-1/4 grid justify-items-center gap-2">
-          <div style={{backgroundColor:ORANGE}} className="grid w-full h-10 rounded-full justify-items-center content-center">
+        <div className="w-1/4 grid justify-items-center gap-2 content-start">
+          <div style={{backgroundColor:ORANGE}} className="grid w-full h-10 rounded-full justify-items-center content-center mb-1">
             <p className="text-white text-xl">教學力</p>
           </div>
           <CourseToggle 
-            topic={"主題一"} 
-            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題一"))}
+            topic={"主題B1"} 
+            courses={courses.filter((course)=>(course.type==="教學力" && course.topic==="主題B1"))}
             color={ORANGE}
           />
         </div>
-        <div className="w-1/4 grid justify-items-center gap-2">
-          <div style={{backgroundColor:GREEN}} className="grid w-full h-10 rounded-full justify-items-center content-center">
+        <div className="w-1/4 grid justify-items-center gap-2 content-start">
+          <div style={{backgroundColor:GREEN}} className="grid w-full h-10 rounded-full justify-items-center content-center mb-1">
             <p className="text-white text-xl">CC力</p>
           </div>
           <CourseToggle 
-            topic={"主題一"} 
-            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題一"))}
+            topic={"主題C1"} 
+            courses={courses.filter((course)=>(course.type==="CC力" && course.topic==="主題C1"))}
             color={GREEN}
           />
         </div>
-        <div className="w-1/4 grid justify-items-center gap-2">
-          <div style={{backgroundColor:TIFFANY}} className="grid w-full h-10 rounded-full justify-items-center content-center">
+        <div className="w-1/4 grid justify-items-center gap-2 content-start">
+          <div style={{backgroundColor:TIFFANY}} className="grid w-full h-10 rounded-full justify-items-center content-center mb-1">
             <p className="text-white text-xl">DD力</p>
           </div>
           <CourseToggle 
-            topic={"主題一"} 
-            courses={courses.filter((course)=>(course.type==="領導力" && course.topic==="主題一"))}
+            topic={"主題D1"} 
+            courses={courses.filter((course)=>(course.type==="DD力" && course.topic==="主題D1"))}
             color={TIFFANY}
           />
         </div>

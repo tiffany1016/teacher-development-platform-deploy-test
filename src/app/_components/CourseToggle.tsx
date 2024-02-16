@@ -38,7 +38,6 @@ export default function AccordionDemo({topic,courses,color}:CourseToggleProps) {
                     </Button>
                     <CourseDialog open={open} onClose={()=>setOpen(false)} courseInfo={course}/>
                   </>
-                  
                 ))}
               </div>
             </AccordionContent>
