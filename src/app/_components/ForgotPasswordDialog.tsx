@@ -41,8 +41,10 @@ function ForgotPasswordDialog() {
     setEmailHint(sent);
     setGetCode(true);
 
-    setCode(generateCode(6));
-    console.log(generateCode(6));
+    const code_ = generateCode(6);
+    setCode(code_);
+    // setCode(generateCode(6));
+    console.log(code_);
   };
   const handleVerifyCode = () => {
     if (codeInput !== code) {
