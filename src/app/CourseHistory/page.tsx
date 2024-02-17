@@ -16,6 +16,7 @@ async function CourseHistory() {
           匯出修課紀錄
         </Button>
       </div>
+      {/* TODO : 主題不能是寫死的*/}
       <div className="flex w-5/6 h-full justify-self-center mt-8 gap-4">
         <div className="w-1/4 grid justify-items-center gap-2 content-start">
           <div style={{backgroundColor:PINK}} className="grid w-full h-10 rounded-full justify-items-center content-center mb-1">

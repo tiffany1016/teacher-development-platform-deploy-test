@@ -60,6 +60,11 @@ export default function CourseDialog({courseInfo,color}:CourseDialogProps) {
               <p>{courseInfo.time.toDateString()}</p>
             </div>
           </div>
+          <div className='w-2/3 mt-3 grid justify-items-end'>
+            <Button style={{backgroundColor:INDIGO}} className="rounded-full text-white h-3/4">
+              {"查看詳細修課報告"}
+            </Button>
+          </div>
         </DialogContent>
         <DialogActions>
           <Button style={{backgroundColor:INDIGO}} onClick={()=>setOpen(false)} className='mb-1 mr-1'>Close</Button>
