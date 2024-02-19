@@ -2,6 +2,7 @@ import { getCourse } from "./components/actions";
 import {Button} from "@/components/ui/button";
 import { PINK,ORANGE,GREEN,TIFFANY } from "@/lib/constants";
 import CourseToggle from "./components/CourseToggle";
+import ExportButton from "./components/ExportButton";
 async function CourseHistory() {
   const username="Susan";
   const courses=await getCourse(username);
@@ -10,11 +11,7 @@ async function CourseHistory() {
     <div className="grid h-full">
       <div className="grid justify-center mt-14">
         <p className="text-3xl text-[#013E6E]">我的修課紀錄</p>
-        <Button
-          className="justify-self-center w-36 mt-4 bg-[#013E6E] text-white text-lg rounded-full hover:bg-slate-400 hover:text-black"
-        >
-          匯出修課紀錄
-        </Button>
+        <ExportButton/>
       </div>
       {/* TODO : 主題不能是寫死的*/}
       <div className="flex w-5/6 h-full justify-self-center mt-8 gap-4">
