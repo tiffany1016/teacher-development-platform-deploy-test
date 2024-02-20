@@ -31,10 +31,6 @@ export const columns: ColumnDef<Class>[] = [
     header: "課程時間",
   },
   {
-    accessorKey: "teacher",
-    header: "授課講師",
-  },
-  {
     accessorKey: "series",
     header: "活動系列",
   },
