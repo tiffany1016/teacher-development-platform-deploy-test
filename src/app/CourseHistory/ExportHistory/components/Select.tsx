@@ -19,7 +19,6 @@ export default function Selection({selections}:SelectionProps) {
       <SelectContent>
         <SelectGroup>
           <SelectItem value="all">全</SelectItem>
-          {/* TODO:map */}
           {selections.map((selection)=>(
             <SelectItem value={selection} key={selection}>{selection}</SelectItem>
           ))}
