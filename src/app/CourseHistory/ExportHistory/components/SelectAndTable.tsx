@@ -55,11 +55,6 @@ export default function SelectAndData({years,types,series,data}:ExportHistoryPro
           <p className="">活動系列</p>
           <Selection selections={series} onChange={handleSeriesChange}/>
         </div>
-        <div className="flex items-center">
-          <Button className="text-white rounded-full" style={{backgroundColor:INDIGO}}>
-            {"搜尋"}
-          </Button>
-        </div>
       </div>
       <div className="w-5/6 h-full justify-self-center mt-8">
         <DataTable columns={columns} data={dataToShow}/>
