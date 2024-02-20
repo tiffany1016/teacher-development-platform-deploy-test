@@ -1,3 +1,4 @@
+"use client";
 import {
   Select,
   SelectContent,
@@ -9,10 +10,11 @@ import {
 } from "@/components/ui/select"
 type SelectionProps={
   selections:string[],
+  onChange:(value:string)=>void,
 }
-export default function Selection({selections}:SelectionProps) {
+export default function Selection({selections,onChange}:SelectionProps) {
   return (
-    <Select defaultValue="all">
+    <Select defaultValue="all" onValueChange={onChange}>
       <SelectTrigger className="w-2/3">
         <SelectValue />
       </SelectTrigger>
