@@ -47,7 +47,7 @@ export default async function AboutMe(){
               </a>
             </div>
           </div>
-          <p className="pt-3 text-2xl" style={{color: INDIGO}}>帳號安全系與隱私管理</p>
+          <p className="pt-3 text-2xl" style={{color: INDIGO}}>帳號安全性與隱私管理</p>
           <div className="rounded-3xl border-2 w-full p-4 flex-col flex gap-3" style={{borderColor: INDIGO}}>
             <div className="grid grid-cols-3">
               <LabelText label={"帳號"} text={session?.user?.email ?? ""} />
