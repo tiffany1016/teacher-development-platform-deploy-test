@@ -7,13 +7,12 @@ yarn
 yarn dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 ## You might need to know
-0. test users
-  |帳號|密碼|
-  |--|--|
-  |one@gmail.com|1234|
-  |three@gmail.com|3333|
+#### users for testing
+| 帳號 | 密碼 |
+| ---- | ---- |
+| one@gmail.com | 1234 |
+| three@gmail.com | 3333 |
 1. standard colors
     - usage:
 ```import { INDIGO, ORANGE } from "@/lib/constants";```
