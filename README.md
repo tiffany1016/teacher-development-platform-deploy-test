@@ -35,26 +35,45 @@ const email = USERS[userIndex].email;
 ```
 
 ## Git Commands
-```bash
-# add branch
-git checkout -b <new branch name> <existing branch>
+1. clone the project
+   ```bash
+   git clone git@github.com:ining310/teacher-development-platform.git
+   ```
+2. add a new branch
+   ```bash
+   git checkout -b <new branch name> <existing branch>
+   # or just
+   git checkout -b <new branch name>
+   ```
+3. update code to github
+    1. make your branch up to date
+        ```bash
+          git checkout <your branch>  # switch to your branch
+          git fetch origin  # fetch code from github
+          git rebase origin/main  # update main to your branch (auto merge, sometimes you'll need to fix conflicts manually)
+        ```
+    2. add(stage), commit, push
+        ```bash
+          git add .
+          git commit -m "commit message"
+          git push origin <to be pushed branch>
+          # 如果他叫你 pull 的話(你有rebase到東西) 就可能要 push -f
+        ```
+4. run other branch (e.g. branch A)
+   ```bash
+    git checkout A
 
-# switch branch
-git checkout <your branch>
-# fetch from github
-git fetch origin
-# update (auto merge)
-git rebase origin/main
+    # remember to install the dependencies
+    yarn
+    yarn dev
+   ```
+   
+5. other useful commands
+   ```bash
+    # pull all branches on github
+    git pull --all
 
-# merge branch A to B
-git checkout B
-git merge A
-
-# pull all branches on github
-git pull --all
-
-git add .
-git commit -m "commit message"
-git push origin <to be pushed branch>
-# 如果他叫你 pull 的話(你有rebase到東西) 就可能要 push -f
-```
+    # merge branch A to B
+    git checkout B
+    git merge A
+   ```
