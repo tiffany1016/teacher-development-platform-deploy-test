@@ -1,61 +1,79 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
-
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# install dependencies
+yarn 
 
+# run the website
+yarn dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## repo maintain
-```bash
-# add branch
-git checkout -b <new branch name> <existing branch>
-
-# switch branch
-git checkout <your branch>
-# fetch from github
-git fetch origin
-# update (auto merge)
-git rebase origin/main
-
-# merge branch A to B
-git checkout B
-git merge A
-
-# pull all branches on github
-git pull --all
-
-git add .
-git commit -m "commit message"
-git push origin <to be pushed branch>
-# 如果他叫你 pull 的話(你有rebase到東西) 就可能要 push -f
+## You might need to know
+0. test users
+  |帳號|密碼|
+  |--|--|
+  |one@gmail.com|1234|
+  |three@gmail.com|3333|
+1. standard colors
+    - usage:
+```import { INDIGO, ORANGE } from "@/lib/constants";```
+add `style={{backgroundColor: INDIGO}}` in component to change background color to INDIGO
+1. session
+    - usage:
 ```
+import { auth } from "@/lib/auth";
+const session = await auth();
+const notAuth = (!session || !session?.user?.email);  # whether signed in
+```
+`session.user.email, session.user.username, session.user.mobile` to get signed-in-user's info
+1. fake const data in `@/lib/constants`
+    - usage (e.g. get user info from mobile):
+```
+import { USERS } from "@/lib/constants";
+const userIndex = USERS.findIndex(({ mobile }) => mobile === userMobile);
+const email = USERS[userIndex].email;
+```
+
+## Git Commands
+1. clone the project
+   ```bash
+   git clone git@github.com:ining310/teacher-development-platform.git
+   ```
+2. add a new branch
+   ```bash
+   git checkout -b <new branch name> <existing branch>
+   # or just
+   git checkout -b <new branch name>
+   ```
+3. update code to github
+    1. make your branch up to date
+        ```bash
+          git checkout <your branch>  # switch to your branch
+          git fetch origin  # fetch code from github
+          git rebase origin/main  # update main to your branch (auto merge, sometimes you'll need to fix conflicts manually)
+        ```
+    2. add(stage), commit, push
+        ```bash
+          git add .
+          git commit -m "commit message"
+          git push origin <to be pushed branch>
+          # 如果他叫你 pull 的話(你有rebase到東西) 就可能要 push -f
+        ```
+4. run other branch (e.g. branch A)
+   ```bash
+    git checkout A
+
+    # remember to install the dependencies
+    yarn
+    yarn dev
+   ```
+   
+5. other useful commands
+   ```bash
+    # pull all branches on github
+    git pull --all
+
+    # merge branch A to B
+    git checkout B
+    git merge A
+   ```
