@@ -1,41 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
-
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# install dependencies
+yarn 
 
+# run the website
+yarn dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## You might need to know
+1. standard colors
+    - usage:
+```import { INDIGO, ORANGE } from "@/lib/constants";```
+add `style={{backgroundColor: INDIGO}}` in component to change background color to INDIGO
+2. session
+    - usage:
+```
+import { auth } from "@/lib/auth";
+const session = await auth();
+const notAuth = (!session || !session?.user?.email);  # whether signed in
+```
+`session.user.email, session.user.username, session.user.mobile` to get signed-in-user's info
+3. fake const data in `@/lib/constants/utils`
+    - usage (e.g. get user info from mobile):
+```
+import { USERS } from "@/lib/constants";
+const userIndex = USERS.findIndex(({ mobile }) => mobile === userMobile);
+const email = USERS[userIndex].email;
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-## repo maintain
+## Git Commands
 ```bash
 # add branch
 git checkout -b <new branch name> <existing branch>
