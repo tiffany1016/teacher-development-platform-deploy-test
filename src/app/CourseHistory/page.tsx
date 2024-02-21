@@ -8,7 +8,7 @@ async function CourseHistory() {
   const courses=await getCourse(username);
 
   return (
-    <div className="grid h-full">
+    <div className="grid h-full p-16">
       <div className="grid justify-center mt-14">
         <p className="text-3xl text-[#013E6E]">我的修課紀錄</p>
         <ExportButton/>

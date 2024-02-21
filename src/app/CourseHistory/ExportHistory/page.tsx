@@ -11,7 +11,7 @@ export default async function ExportHistory(){
   const series=getSeries();
   const data=getData();
   return(
-    <div className="grid h-full">
+    <div className="grid h-full p-14">
       <div className="grid justify-center mt-14 mb-5">
         <p className="text-3xl text-[#013E6E]">匯出設定</p>
       </div>

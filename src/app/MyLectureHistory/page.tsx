@@ -12,7 +12,7 @@ export default async function MyLectureHistory(){
   const series=getSeries();
   const data=getData();
   return(
-    <div className="grid h-full">
+    <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
         <p className="text-3xl text-[#013E6E]">我的講師紀錄</p>
       </div>

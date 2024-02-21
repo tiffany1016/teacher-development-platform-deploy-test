@@ -24,7 +24,7 @@ export function NavbarMenu({userEmail, username}: { userEmail: string , username
         <NavigationMenuItem>
           <NavigationMenuTrigger className="bg-transparent hover:bg-transparent active:bg-transparent">
             <div className="flex">
-              <UserAvatar userEmail={userEmail || ""} />
+              <UserAvatar size={24} userEmail={userEmail || ""} />
               <div
                 className="flex items-center gap-1.5 rounded-sm hover:opacity-80 py-1 px-2 font-semibold"
               >
@@ -38,7 +38,7 @@ export function NavbarMenu({userEmail, username}: { userEmail: string , username
               <a href="/MyLectureHistory" className="hover:opacity-70">我的講師紀錄</a>
               <a href="/" className="hover:opacity-70">我的IDP</a>
               <Separator className="bg-white opacity-50" />
-              <a href="/" className="hover:opacity-70">關於我</a>
+              <a href="/AboutMe" className="hover:opacity-70">關於我</a>
               <a href="/auth/signout" className="hover:opacity-70">登出</a>
             </div>
           </NavigationMenuContent>

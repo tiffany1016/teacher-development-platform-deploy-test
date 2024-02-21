@@ -27,6 +27,6 @@ export const {
     },
   },
   pages: {
-    signIn: "/",
+    signIn: "/AboutMe",
   },
 });

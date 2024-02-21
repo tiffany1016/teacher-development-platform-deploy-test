@@ -10,4 +10,11 @@ export const TIFFANY = rgbToHex(46,182,170);
 
 // account
 export const USERS = [{ username: "誠致", email: "zhi@chengzhiedu.org", mobile: "", password: "kist" },
-                      { username: "阿依", email: "myemail@gmail.com", mobile: "0912345678", password: "1234" }];
+                      { username: "阿依", email: "one@gmail.com", mobile: "0912345678", password: "1234" },
+                      { username: "阿參", email: "three@gmail.com", mobile: "0933333333", password: "3333" },                    
+                    ];
+
+// info
+export const INFO = [{ email: "one@gmail.com", info: ["三民國小","六年級導師","社會","國小社會領召"] },
+                     { email: "three@gmail.com", info: ["三民國小","校長","自然",""] },
+                    ];
