@@ -15,9 +15,9 @@ export default async function ExportHistory(){
         
       </div>
       <SelectAndData years={years} data={data} schools={teams}/>
-      <div className="grid justify-items-center mt-5 ">
-        <Button className="text-white rounded-full w-[10%] h-8" style={{backgroundColor:INDIGO}}>
-          {"匯出"}
+      <div className="grid w-5/6 justify-self-center justify-items-end mt-4">
+        <Button className="text-white rounded-full w-[12%] h-8" style={{backgroundColor:INDIGO}}>
+          {"批次停用教師"}
         </Button>
       </div>
     </div>

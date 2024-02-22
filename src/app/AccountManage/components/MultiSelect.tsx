@@ -31,8 +31,8 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 export default function Selection({schools,onChange,schoolName}:SelectionProps) {
   const theme = useTheme();
   return (
-    <div>
-      <FormControl sx={{ width: 150 }}>
+    <div className=''>
+      <FormControl sx={{ width: 150 }} size="small">
         <InputLabel id="demo-multiple-name-label">School</InputLabel>
         <Select
           labelId="demo-multiple-name-label"

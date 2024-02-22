@@ -26,7 +26,7 @@ type ExportHistoryProps={
 }[],
 }
 export default function SelectAndData({years,schools,data}:ExportHistoryProps){
-  const [selectedYear, setSelectedYear] = useState(years[0]);
+  const [selectedYear, setSelectedYear] = useState("all");
   // Handler function for year selection change
   const handleYearChange1 = (value:string) => {
     
@@ -47,20 +47,22 @@ export default function SelectAndData({years,schools,data}:ExportHistoryProps){
     );
   };
   const dataToShow=data.filter((d)=>(
-    (d.time===selectedYear)
+    (d.time===selectedYear||selectedYear==='all')
   ));
   return(
     <div className='grid justify-items-center'>
       <div className="flex justify-center gap-1 w-full">
         <div className="flex gap-1 items-center w-1/4 gap-4">
-          <Selection selections={years} onChange={handleYearChange1}/>
+          <div className='w-2/3'>
+            <Selection selections={years} onChange={handleYearChange1}/>
+          </div>
           <UploadButton/>
         </div>
       </div>
       <div className='w-5/6 mt-2'>
         <div className='flex justify-self-start items-center'>
           <p className="">現有帳號列表</p>
-          <div className='grid w-1/4 justify-items-center'>
+          <div className='grid w-1/6 justify-items-center ml-2 mr-2'>
             <Selection selections={years} onChange={handleYearChange2}/>
           </div>
           <MultiSelect schools={schools} onChange={handleChange} schoolName={schoolName}/>

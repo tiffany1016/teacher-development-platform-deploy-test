@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import { INDIGO, ORANGE } from "@/lib/constants";
 import {
   Table,
   TableBody,
@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {Button} from "@/components/ui/button";
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
@@ -35,15 +36,20 @@ export function DataTable<TData, TValue>({
       rowSelection,
     }
   })
-  
+  const handleClick=()=>{
+    table.toggleAllPageRowsSelected(false);
+  }
   // table.getIsAllRowsSelected();
   return (
     <>
-      <div className="w-full grid">
+      <div className="w-full grid relative">
         {table.getFilteredSelectedRowModel().rows.length>0?
-          <div className="flex justify-self-end" >
-            <Button className="rounded-full">
-
+          <div className="flex justify-self-end gap-2 mb-2 absolute -top-10">
+            <Button className="rounded-full" style={{backgroundColor:ORANGE}}>
+              {"儲存"}
+            </Button>
+            <Button className="rounded-full" style={{backgroundColor:INDIGO}} onClick={handleClick}>
+              {"取消"}
             </Button>
           </div>
           :
