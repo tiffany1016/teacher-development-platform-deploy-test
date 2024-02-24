@@ -1,10 +1,12 @@
 "use client"
- 
+import {Button} from "@/components/ui/button";
+import { INDIGO } from "@/lib/constants";
 import { ColumnDef } from "@tanstack/react-table"
  
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Class = {
+  student:string,
   topic:string,
   type:string,
   name:string,
@@ -14,6 +16,10 @@ export type Class = {
 }
  
 export const columns: ColumnDef<Class>[] = [
+  {
+    accessorKey: "student",
+    header: "修課教師",
+  },
   {
     accessorKey: "type",
     header: "課程類別",
@@ -34,4 +40,14 @@ export const columns: ColumnDef<Class>[] = [
     accessorKey: "series",
     header: "活動系列",
   },
+  {
+    accessorKey: "record",
+    header: "修課紀錄",
+    cell: ({ row }) => (
+      <Button style={{backgroundColor:INDIGO}} className="rounded-full ml-2">
+        {"查看"}
+      </Button>
+    ),
+  },
+  // TODO:分配欄寬
 ]

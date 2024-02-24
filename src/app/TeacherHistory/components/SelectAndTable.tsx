@@ -13,6 +13,7 @@ type ExportHistoryProps={
   topics:string[],
   course:string[],
   data: {
+    student:string,
     type: string;
     topic: string;
     name: string;
@@ -56,7 +57,7 @@ export default function SelectAndData({teachers,years,topics,types,series,course
     (d.time===selectedYear||selectedYear==="all")&&
     (d.type===selectedType||selectedType==="all")&&
     (d.series===selectedSeries||selectedSeries==="all")&&
-    (d.teacher===selectedTeacher||selectedTeacher==="all")&&
+    (d.student===selectedTeacher||selectedTeacher==="all")&&
     (d.name===selectedCourse||selectedCourse==="all")&&
     (d.topic===selectedTopic||selectedTopic==="all")
   ));

@@ -18,6 +18,7 @@ export const getCourse=()=>{
 }
 export const getData=()=>{
   return [{
+    student:"啊一",
     type:"領導力",
     topic:"嚴謹教學",
     name:"課程一",
@@ -25,6 +26,7 @@ export const getData=()=>{
     teacher:"甲老師",
     series:"2024峰會",
   },{
+    student:"啊二",
     type:"領導力",
     topic:"嚴謹教學",
     name:"課程二",
@@ -32,6 +34,7 @@ export const getData=()=>{
     teacher:"乙老師",
     series:"2024峰會",
   },{
+    student:"啊一",
     type:"領導力",
     topic:"個人化學習",
     name:"課程三",
@@ -39,6 +42,7 @@ export const getData=()=>{
     teacher:"丙老師",
     series:"2024峰會",
   },{
+    student:"啊一",
     type:"領導力",
     topic:"個人化學習",
     name:"課程四",
@@ -46,6 +50,7 @@ export const getData=()=>{
     teacher:"丁老師",
     series:"2024峰會",
   },{
+    student:"啊二",
     type:"領導力",
     topic:"個人化學習",
     name:"課程五",
@@ -53,6 +58,7 @@ export const getData=()=>{
     teacher:"戊老師",
     series:"2024峰會",
   },{
+    student:"啊二",
     type:"領導力",
     topic:"個人化學習",
     name:"課程六",
