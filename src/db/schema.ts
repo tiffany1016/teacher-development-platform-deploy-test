@@ -1,18 +1,13 @@
 import { relations } from "drizzle-orm";
-import { sql } from "drizzle-orm";
 import {
   index,
   char,
   json,
-  text,
   pgTable,
   serial,
   uuid,
   varchar,
-  unique,
-  timestamp,
   integer,
-  doublePrecision,
   boolean,
 } from "drizzle-orm/pg-core";
 export const usersTable = pgTable("users",{
@@ -47,7 +42,9 @@ export const usersTable = pgTable("users",{
   }),
 );
 export const usersRelations = relations(usersTable, ({ many }) => ({
-  courseTaken: many(courseTable),
+  studentToCourse: many(studentToCourse),
+  records:many(courseRecordTable),
+  teacher:many(courseTable),
 }));
 export const courseTable= pgTable("course",{
     id:serial("id").primaryKey(),
@@ -55,12 +52,80 @@ export const courseTable= pgTable("course",{
     series:varchar("series").notNull(),
     courseId:varchar("courseId").notNull().unique(),
     name:varchar("name",{length:100}).notNull(),
-    teacherId:uuid("teacherId").notNull(),
-    typeId:integer("typeId").notNull(),
+    teacherId:uuid("teacherId").references(()=>usersTable.displayId,{
+      onUpdate: 'cascade'
+    }),
+    typeId:integer("typeId").notNull().references(()=>courseMapTable.id,{
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }),
   },
 );
-export const userToCourse=pgTable("userToCourse",{
-    userId:uuid("userId").notNull().references(()=>usersTable.displayId),
-    
+export const courseRelations=relations(courseTable,({one,many})=>({
+  studentToCourse: many(studentToCourse),
+  teacher:one(usersTable,{
+    fields:[courseTable.teacherId],
+    references:[usersTable.displayId],
+  }),
+  records:many(courseRecordTable),
+  type:one(courseMapTable,{
+    fields:[courseTable.typeId],
+    references:[courseMapTable.id],
+  }),
+}));
+export const studentToCourse=pgTable("userToCourse",{
+    userId:uuid("userId").notNull().references(()=>usersTable.displayId,{
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }),
+    courseId:varchar("courseId").notNull().references(()=>courseTable.courseId,{
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }),
   },
 );
+export const userToCourseRelations=relations(studentToCourse,({one})=>({
+  course: one(courseTable, {
+    fields: [studentToCourse.courseId],
+    references: [courseTable.courseId],
+  }),
+  user: one(usersTable, {
+    fields: [studentToCourse.userId],
+    references: [usersTable.displayId],
+  }),
+}));
+export const courseRecordTable=pgTable("courseRecord",{
+    studentId:uuid("studentId").notNull().references(()=>usersTable.displayId,{
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }),
+    courseId:varchar("courseId").notNull().references(()=>courseTable.courseId,{
+      onDelete: 'cascade',
+      onUpdate: 'cascade'
+    }),
+    title:varchar("title",{length:200}).notNull(),
+    discription:varchar("discription",{length:500}),
+    link:varchar("link"),
+    open:boolean("open").notNull().default(false),
+  },
+);
+export const recordRelations=relations(courseRecordTable,({one})=>({
+  student:one(usersTable,{
+    fields: [courseRecordTable.studentId],
+    references:[usersTable.displayId],
+  }),
+  course:one(courseTable,{
+    fields: [courseRecordTable.courseId],
+    references: [courseTable.courseId],
+  })
+}));
+export const courseMapTable=pgTable("courseMap",{
+    id:serial("id").primaryKey(),
+    bigCategory:varchar("bigCategory",{length:50}).notNull(),
+    middleCategory:varchar("middleCategory",{length:50}).notNull(),
+    smallCategory:varchar("smallCategory",{length:50}).notNull(),
+  },
+);
+export const courseMapRelations=relations(courseMapTable,({many})=>({
+  course:many(courseTable),
+}));
