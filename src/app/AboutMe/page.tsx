@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import LabelText from "./_components/LabelText";
+import ChangePasswordDialog from "./_components/ChangePasswordDialog";
 export default async function AboutMe(){
   const session = await auth();
   const infoLabels = ["學校/單位","學校職務","科目/課程","聯盟角色"];
@@ -12,9 +13,6 @@ export default async function AboutMe(){
   const info = INFO[index].info;
   return(
     <div className="grid h-full p-16">
-      {/* <div className="grid justify-center mt-14 mb-5">
-        <p className="text-3xl text-[#013E6E]">我的講師紀錄</p>
-      </div> */}
       <a className="mt-4 mb-8 inline-flex items-center text-sm font-medium font-semibold gap-1 text-gray-700 hover:opacity-80">
         {">"}<MdPerson />關於我
       </a>
@@ -54,12 +52,13 @@ export default async function AboutMe(){
               <LabelText label={"手機號碼"} text={session?.user?.mobile ?? ""} />
             </div>
             <div className="flex gap-3">
-              <a 
+              {/* <a 
                 className="justify-self-center w-fit px-3 py-1 text-white text-sm rounded-full hover:opacity-80"
                 style={{backgroundColor: INDIGO}}
               >
                 變更密碼
-              </a>
+              </a> */}
+              <ChangePasswordDialog />
               <a 
                 className="justify-self-center w-fit px-3 py-1 text-white text-sm rounded-full hover:opacity-80"
                 style={{backgroundColor: INDIGO}}
