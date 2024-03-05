@@ -1,7 +1,7 @@
 import React from "react";
 import { INDIGO } from "@/lib/constants";
 
-async function AboutAdminInfo() {
+function AboutAdminInfo() {
   return (
     <div className="w-3/4 px-8 flex gap-3 items-center text-center" style={{height: "70vh"}}>
       <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-4" style={{borderColor: INDIGO, color: INDIGO}}>
