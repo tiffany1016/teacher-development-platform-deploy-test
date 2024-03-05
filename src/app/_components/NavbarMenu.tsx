@@ -36,7 +36,7 @@ export function NavbarMenu({userEmail, username}: { userEmail: string , username
             <div className="grid gap-2 p-4 w-32 text-sm" style={{ color: INDIGO, backgroundColor: LIGHT_BLUE }} >
               <a href="/CourseHistory" className="hover:opacity-70">我的修課紀錄</a>
               <a href="/MyLectureHistory" className="hover:opacity-70">我的講師紀錄</a>
-              <a href="/" className="hover:opacity-70">我的IDP</a>
+              <a href="/MyIDP" className="hover:opacity-70">我的IDP</a>
               <Separator className="bg-white opacity-50" />
               <a href="/AboutMe" className="hover:opacity-70">關於我</a>
               <a href="/auth/signout" className="hover:opacity-70">登出</a>
