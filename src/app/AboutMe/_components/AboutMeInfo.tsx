@@ -13,7 +13,7 @@ async function AboutMeInfo() {
     <div className="w-3/4 flex flex-col gap-3 items-center">
           <p className="text-2xl" style={{color: INDIGO}}>個人資料</p>
           <div className="rounded-3xl border-2 w-full px-4 py-6 gap-3 flex flex-col" style={{borderColor: INDIGO}}>
-            {infoLabels.map((label,i) => (
+            {info && infoLabels.map((label,i) => (
               <LabelText label={label} text={info[i]} />
             ))}
             <div className="flex items-center">

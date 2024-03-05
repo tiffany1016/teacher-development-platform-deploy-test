@@ -19,7 +19,7 @@ export default async function AboutMe(){
             {session?.user?.username}
           </div>
           <a href="/auth/signout"
-            className="justify-self-center px-8 py-1 text-white text-sm rounded-full hover:opacity-80"
+            className="cursor-pointer justify-self-center text-center w-24 py-1 text-white text-sm rounded-full hover:opacity-80"
             style={{backgroundColor: INDIGO}}
           >
             登出
