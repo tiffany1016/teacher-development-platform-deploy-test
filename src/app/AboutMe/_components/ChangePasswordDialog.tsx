@@ -1,18 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
-import { signIn } from "next-auth/react";
-import Image from "next/image"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 // import Resizer from "react-image-file-resizer";
-import { publicEnv } from "@/lib/env/public";
-import { MdLogin } from "react-icons/md";
-import { GREEN, INDIGO, ORANGE, PINK, USERS } from "@/lib/constants";
-import { auth } from "@/lib/auth";
-import { generateCode } from "@/lib/utils";
+import { INDIGO, PINK, USERS } from "@/lib/constants";
 import { useSession } from "next-auth/react";
 
 export default function ChangePasswordDialog() {
