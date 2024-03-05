@@ -55,7 +55,7 @@ function ForgotPasswordDialog() {
     setCodeHint("驗證成功");
     setVerified(true);
   };
-  const handleUpdatePassword = async () => {
+  const handleUpdatePassword = () => {
     const userIndex = USERS.findIndex(({ email }) => email === userEmail);
     if (newPassword !== confirmNewPassword) {
       setPasswordHint("密碼不一致");
