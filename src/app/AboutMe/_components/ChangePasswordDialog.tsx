@@ -54,7 +54,7 @@ export default function ChangePasswordDialog() {
   return(
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="cursor-pointer justify-self-center w-fit px-3 py-1 text-white text-sm rounded-full hover:opacity-80" style={{backgroundColor: INDIGO}}>
+        <div className="cursor-pointer justify-self-center text-center w-24 py-1 text-white text-sm rounded-full hover:opacity-80" style={{backgroundColor: INDIGO}}>
           修改密碼
         </div>
       </DialogTrigger>
@@ -104,14 +104,13 @@ export default function ChangePasswordDialog() {
               />
             </div>
             <div className="text-xs self-center" style={{color: PINK}}>{passwordHint}</div>
-            <Button 
-              type="submit" 
-              className="mt-2 w-fit rounded-full font-semibold self-center" 
+            <div 
+              className="cursor-pointer mt-2 justify-self-center w-fit px-4 py-1 text-white text-sm rounded-full hover:opacity-80 font-semibold self-center" 
               style={{backgroundColor: INDIGO}}
               onClick={() => {handleUpdatePassword()}}
             >
               修改密碼
-            </Button>
+            </div>
           </div>
         </div>
         <DialogClose asChild>
