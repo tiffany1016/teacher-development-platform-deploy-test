@@ -1,13 +1,25 @@
 import React from "react";
-import { INDIGO, INFO } from "@/lib/constants";
-import { auth } from "@/lib/auth";
-import LabelText from "./LabelText";
-import ChangePasswordDialog from "./ChangePasswordDialog";
+import { INDIGO } from "@/lib/constants";
 
 async function AboutAdminInfo() {
   return (
-    <div className="w-3/4 flex flex-col gap-3 items-center">
-      <p className="text-2xl" style={{color: INDIGO}}>個人資料</p>
+    <div className="w-3/4 px-8 flex gap-3 items-center text-center" style={{height: "70vh"}}>
+      <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-4" style={{borderColor: INDIGO, color: INDIGO}}>
+        <p className="py-3 text-2xl">帳號管理</p>
+        <a href="" className="underline">帳號列表</a>
+        <a href="" className="underline">教師教學經歷表</a>
+      </div>
+      <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-3" style={{borderColor: INDIGO, color: INDIGO}}>
+        <p className="py-3 text-2xl">課程管理</p>
+        <a href="" className="underline">教師修課紀錄</a>
+        <a href="" className="underline">基金會課程紀錄</a>
+        <a href="" className="underline">編輯課程地圖</a>
+      </div>
+      <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-3" style={{borderColor: INDIGO, color: INDIGO}}>
+        <p className="py-3 text-2xl">IDP管理</p>
+        <a href="" className="underline">KIST教師IDP紀錄</a>
+        <a href="" className="underline">匯入IDP問題集</a>
+      </div>
     </div>
   );
 }
