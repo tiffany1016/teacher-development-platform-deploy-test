@@ -24,7 +24,7 @@ export const {
       // const mobile = "0912345678";
       const user = USERS[USERS.findIndex(({ email }) => email === userEmail)];
       if (session.user) {
-        session.user.name = user.username;
+        session.user.username = user.username;
         session.user.email = user.email;
         session.user.mobile = user.mobile;
       }
