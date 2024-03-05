@@ -43,6 +43,9 @@ export default CredentialsProvider({
     }
     return {
       email: userEmail,
+      mobile: user.mobile,
+      authority: user.authority,
+      username: user.username
     };
   },
 });
