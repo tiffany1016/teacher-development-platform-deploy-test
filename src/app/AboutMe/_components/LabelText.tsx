@@ -2,7 +2,7 @@ export default async function LabelText({label, text}: { label: string, text: st
   return (
     <div className="flex">
         <a className="font-semibold mr-1">{label+"："}</a>
-        {text}
+        {text==="" ? "無" : text}
     </div>
   );
 }
