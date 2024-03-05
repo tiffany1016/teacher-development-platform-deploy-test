@@ -4,5 +4,6 @@ declare module "next-auth" {
   interface User {
     username: string;
     mobile: string;
+    authority: string;
   }
 }

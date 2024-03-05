@@ -8,8 +8,15 @@ export const ORANGE = rgbToHex(234,140,46);
 export const GREEN = rgbToHex(183,184,51);
 export const TIFFANY = rgbToHex(46,182,170);
 
+// authority
+export const ADMIN = "A";
+export const PRINCIPAL = "B";
+export const DIRECTOR_EDITABLE = "C";
+export const DIRECTOR = "D";
+export const TEACHER = "E";
+
 // account
-export const USERS = [{ username: "誠致", email: "zhi@chengzhiedu.org", mobile: "", password: "kist", organization: "誠致教育基金會", authority: "A" },
+export const USERS = [{ username: "誠致", email: "chengzhi@chengzhiedu.org", mobile: "", password: "kist", organization: "誠致1", authority: "A" },
                       { username: "阿依", email: "one@gmail.com", mobile: "0912345678", password: "1234", organization: "三民國小", authority: "E" },
                       { username: "阿參", email: "three@gmail.com", mobile: "0933333333", password: "0933333333", organization: "三民國小", authority: "B" },              
                      ];
