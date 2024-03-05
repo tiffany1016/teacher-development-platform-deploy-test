@@ -14,7 +14,7 @@ async function AboutMeInfo() {
           <p className="text-2xl" style={{color: INDIGO}}>個人資料</p>
           <div className="rounded-3xl border-2 w-full px-4 py-6 gap-3 flex flex-col" style={{borderColor: INDIGO}}>
             {info && infoLabels.map((label,i) => (
-              <LabelText label={label} text={info[i]} />
+              <LabelText key={label} label={label} text={info[i]} />
             ))}
             <div className="flex items-center">
               <a className="font-semibold mr-1">教學紀錄：</a>
@@ -33,12 +33,6 @@ async function AboutMeInfo() {
               <LabelText label={"手機號碼"} text={session?.user?.mobile ?? ""} />
             </div>
             <div className="flex gap-3">
-              {/* <a 
-                className="justify-self-center w-fit px-3 py-1 text-white text-sm rounded-full hover:opacity-80"
-                style={{backgroundColor: INDIGO}}
-              >
-                變更密碼
-              </a> */}
               <ChangePasswordDialog />
               <a 
                 className="justify-self-center w-fit px-3 py-1 text-white text-sm rounded-full hover:opacity-80"
