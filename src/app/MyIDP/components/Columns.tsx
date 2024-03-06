@@ -35,42 +35,42 @@ export const columns: ColumnDef<Class>[] = [
     accessorKey: "state",
     header: "狀態",
   },
-  {
-    accessorKey: "comment",
-    header: "他評(optional)",
-    cell: ({ row }) => {
-      const [open,setOpen]=useState(false);
-      return(
-        <>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button style={{backgroundColor:INDIGO}} className="rounded-full h-6">
-                {"查看"}
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="w-1/3 grid">
-              <DialogHeader>
-                <DialogTitle>他評</DialogTitle>
-                <DialogDescription>
-                  他人評論
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex items-center space-x-2 mt-2 mb-2">
-                {row.getValue("comment")}
-              </div>
-              <DialogFooter className="grid justify-items-end self-end">
-                <DialogClose asChild>
-                  <Button variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </>
-      );
-    },
-  },
+  // {
+  //   accessorKey: "comment",
+  //   header: "他評(optional)",
+  //   cell: ({ row }) => {
+  //     const [open,setOpen]=useState(false);
+  //     return(
+  //       <>
+  //         <Dialog>
+  //           <DialogTrigger asChild>
+  //             <Button style={{backgroundColor:INDIGO}} className="rounded-full h-6">
+  //               {"查看"}
+  //             </Button>
+  //           </DialogTrigger>
+  //           <DialogContent className="w-1/3 grid">
+  //             <DialogHeader>
+  //               <DialogTitle>他評</DialogTitle>
+  //               <DialogDescription>
+  //                 他人評論
+  //               </DialogDescription>
+  //             </DialogHeader>
+  //             <div className="flex items-center space-x-2 mt-2 mb-2">
+  //               {row.getValue("comment")}
+  //             </div>
+  //             <DialogFooter className="grid justify-items-end self-end">
+  //               <DialogClose asChild>
+  //                 <Button variant="secondary">
+  //                   Close
+  //                 </Button>
+  //               </DialogClose>
+  //             </DialogFooter>
+  //           </DialogContent>
+  //         </Dialog>
+  //       </>
+  //     );
+  //   },
+  // },
   {
     header: "操作",
     cell: ({ row }) => (
