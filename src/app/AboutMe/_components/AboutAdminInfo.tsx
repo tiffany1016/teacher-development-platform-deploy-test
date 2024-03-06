@@ -11,7 +11,7 @@ function AboutAdminInfo() {
       </div>
       <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-3" style={{borderColor: INDIGO, color: INDIGO}}>
         <p className="py-3 text-2xl">課程管理</p>
-        <a href="/" className="underline">教師修課紀錄</a>
+        <a href="/CourseHistory/ExportHistory" className="underline">教師修課紀錄</a>
         <a href="/LectureRecords" className="underline">基金會課程紀錄</a>
         <a href="/CourseMap" className="underline">編輯課程地圖</a>
       </div>
