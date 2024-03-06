@@ -1,7 +1,7 @@
 export const getData=(username:string)=>{
   return [{
     time:"112-1",
-    updateTime:"",
+    updateTime:"-",
     state:"尚未填寫",
     comment:"blablabla",
   },{
