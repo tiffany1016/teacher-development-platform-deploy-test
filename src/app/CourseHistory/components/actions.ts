@@ -4,7 +4,7 @@ export const getCourse = async(username:string) =>{
     type:"領導力",
     series:"2023峰會",
     teacher:"1",
-    time:new Date("2023-12-17T03:24:00"),
+    time:new Date("2024-02-17T03:24:00"),
     topic:"主題A1",
     name:"class 1",
   },{
@@ -46,7 +46,7 @@ export const getCourse = async(username:string) =>{
     type:"教學力",
     series:"2023峰會",
     teacher:"1",
-    time:new Date("2023-12-17T03:24:00"),
+    time:new Date("2022-12-17T03:24:00"),
     topic:"主題B2",
     name:"class 7",
   },{
@@ -60,7 +60,7 @@ export const getCourse = async(username:string) =>{
     type:"CC力",
     series:"2023峰會",
     teacher:"1",
-    time:new Date("2023-12-01T03:24:00"),
+    time:new Date("2022-12-01T03:24:00"),
     topic:"主題C1",
     name:"class 9",
   },{
