@@ -18,10 +18,10 @@ export const TEACHER = "E";
 // account
 export const USERS = [{ username: "誠致", email: "chengzhi@chengzhiedu.org", mobile: "", password: "kist", organization: "誠致1", authority: "A" },
                       { username: "阿依", email: "one@gmail.com", mobile: "0912345678", password: "1234", organization: "三民國小", authority: "E" },
-                      { username: "阿參", email: "three@gmail.com", mobile: "0933333333", password: "0933333333", organization: "三民國小", authority: "B" },              
+                    //   { username: "阿參", email: "three@gmail.com", mobile: "0933333333", password: "0933333333", organization: "三民國小", authority: "B" },              
                      ];
 
 // info
 export const INFO = [{ email: "one@gmail.com", info: ["三民國小","六年級導師","社會","國小社會領召"] },
-                     { email: "three@gmail.com", info: ["三民國小","校長","自然",""] },
+                    //  { email: "three@gmail.com", info: ["三民國小","校長","自然",""] },
                     ];
