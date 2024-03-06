@@ -8,6 +8,7 @@ import { INDIGO } from "@/lib/constants";
 type ExportHistoryProps={
   years:string[],
   types:string[],
+  topics:string[],
   series:string[],
   data: {
     type: string;
@@ -18,9 +19,10 @@ type ExportHistoryProps={
     series: string;
 }[],
 }
-export default function SelectAndData({years,types,series,data}:ExportHistoryProps){
+export default function SelectAndData({years,types,topics,series,data}:ExportHistoryProps){
   const [selectedYear, setSelectedYear] = useState("all");
   const [selectedType, setSelectedType] = useState("all");
+  const [selectedTopic, setSelectedTopic] = useState("all");
   const [selectedSeries, setSelectedSeries] = useState("all");
   // Handler function for year selection change
   const handleYearChange = (value:string) => {
@@ -32,13 +34,18 @@ export default function SelectAndData({years,types,series,data}:ExportHistoryPro
     setSelectedType(value);
   };
 
+  // Handler function for topic selection change
+  const handleTopicChange = (value:string) => {
+    setSelectedTopic(value);
+  };
+
   // Handler function for series selection change
   const handleSeriesChange = (value:string) => {
     setSelectedSeries(value);
   };
 
   const dataToShow=data.filter((d)=>(
-    (d.time===selectedYear||selectedYear==="all")&&(d.type===selectedType||selectedType==="all")&&(d.series===selectedSeries||selectedSeries==="all")
+    (d.time===selectedYear||selectedYear==="all")&&(d.type===selectedType||selectedType==="all")&&(d.topic===selectedTopic||selectedTopic==="all")&&(d.series===selectedSeries||selectedSeries==="all")
   ));
   return(
     <>
@@ -50,6 +57,10 @@ export default function SelectAndData({years,types,series,data}:ExportHistoryPro
         <div className="flex gap-1 items-center w-1/5">
           <p className="">課程類別</p>
           <Selection selections={types} onChange={handleTypeChange}/>
+        </div>
+        <div className="flex gap-1 items-center w-1/5">
+          <p className="">課程主題</p>
+          <Selection selections={topics} onChange={handleTopicChange}/>
         </div>
         <div className="flex gap-1 items-center w-1/5">
           <p className="">活動系列</p>
