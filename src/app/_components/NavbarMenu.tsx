@@ -37,7 +37,7 @@ export function NavbarMenu({userEmail, username}: { userEmail: string , username
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="grid gap-2 p-4 w-32 text-sm" style={{ color: INDIGO, backgroundColor: LIGHT_BLUE }} >
-              <a href="/CourseHistory" className="hover:opacity-70">{authority!==ADMIN ? "我的" : "教師"}修課紀錄</a>
+              <a href={authority!==ADMIN?"/CourseHistory":"/CourseHistory/ExportHistory"} className="hover:opacity-70">{authority!==ADMIN ? "我的" : "教師"}修課紀錄</a>
               <a href="/MyLectureHistory" className="hover:opacity-70">{authority!==ADMIN ? "我的" : "教師"}講師紀錄</a>
               {authority!==ADMIN && <a href="/MyIDP" className="hover:opacity-70">我的IDP</a>}
               <Separator className="bg-white opacity-50" />
