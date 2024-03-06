@@ -17,8 +17,8 @@ function AboutAdminInfo() {
       </div>
       <div className="rounded-3xl border-2 h-full w-full p-4 flex-col flex gap-3" style={{borderColor: INDIGO, color: INDIGO}}>
         <p className="py-3 text-2xl">IDP管理</p>
-        <a href="/" className="underline">KIST教師IDP紀錄</a>
-        <a href="/" className="underline disabled">匯入IDP問題集</a>
+        <a className="">KIST教師IDP紀錄</a>
+        <a className="">匯入IDP問題集</a>
       </div>
     </div>
   );

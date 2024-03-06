@@ -15,6 +15,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useSession } from "next-auth/react";
+import { ADMIN } from "@/lib/constants";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -30,7 +32,7 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   })
-
+  const { data: session } = useSession();
   return (
     <div className="rounded-md border">
       <Table>
@@ -38,6 +40,9 @@ export function DataTable<TData, TValue>({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="">
               {headerGroup.headers.map((header) => {
+                if(session?.user?.authority!==ADMIN && header.id==="teacher") {
+                  return <></>
+                };
                 return (
                   <TableHead key={header.id} className="text-base font-bold">
                     {header.isPlaceholder

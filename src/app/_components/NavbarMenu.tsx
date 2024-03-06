@@ -14,10 +14,13 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import UserAvatar from "./UserAvatar"
-import { INDIGO, LIGHT_BLUE } from "@/lib/constants"
+import { ADMIN, INDIGO, LIGHT_BLUE } from "@/lib/constants"
 import { Separator } from "@/components/ui/separator"
+import { useSession } from "next-auth/react";
 
 export function NavbarMenu({userEmail, username}: { userEmail: string , username: string }) {
+  const { data: session } = useSession();
+  const authority = session?.user?.authority;
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -34,9 +37,9 @@ export function NavbarMenu({userEmail, username}: { userEmail: string , username
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div className="grid gap-2 p-4 w-32 text-sm" style={{ color: INDIGO, backgroundColor: LIGHT_BLUE }} >
-              <a href="/CourseHistory" className="hover:opacity-70">我的修課紀錄</a>
-              <a href="/MyLectureHistory" className="hover:opacity-70">我的講師紀錄</a>
-              <a href="/MyIDP" className="hover:opacity-70">我的IDP</a>
+              <a href="/CourseHistory" className="hover:opacity-70">{authority!==ADMIN ? "我的" : "教師"}修課紀錄</a>
+              <a href="/MyLectureHistory" className="hover:opacity-70">{authority!==ADMIN ? "我的" : "教師"}講師紀錄</a>
+              {authority!==ADMIN && <a href="/MyIDP" className="hover:opacity-70">我的IDP</a>}
               <Separator className="bg-white opacity-50" />
               <a href="/AboutMe" className="hover:opacity-70">關於我</a>
               <a href="/auth/signout" className="hover:opacity-70">登出</a>
