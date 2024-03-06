@@ -15,6 +15,10 @@ export type Class = {
  
 export const columns: ColumnDef<Class>[] = [
   {
+    accessorKey: "teacher",
+    header: "老師",
+  },
+  {
     accessorKey: "type",
     header: "課程類別",
   },
