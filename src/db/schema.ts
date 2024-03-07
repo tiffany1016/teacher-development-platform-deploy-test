@@ -17,7 +17,7 @@ export const usersTable = pgTable("users",{
     email: varchar("email", { length: 100 }).notNull().unique(),
     phoneNumber: varchar("phoneNumber", { length: 100 }).notNull(),
     authority:char("authority").notNull().default('A'),
-    available:boolean("available").notNull().default(true),
+    disable:boolean("disable").notNull().default(false),
     experience:json("experience").$type<{
       startTime:string[],
       endTime:string[],
@@ -95,6 +95,7 @@ export const userToCourseRelations=relations(studentToCourse,({one})=>({
   }),
 }));
 export const courseRecordTable=pgTable("courseRecord",{
+    id:serial("id").primaryKey(),
     studentId:uuid("studentId").notNull().references(()=>usersTable.displayId,{
       onDelete: 'cascade',
       onUpdate: 'cascade'
@@ -106,7 +107,7 @@ export const courseRecordTable=pgTable("courseRecord",{
     title:varchar("title",{length:200}).notNull(),
     discription:varchar("discription",{length:500}),
     link:varchar("link"),
-    open:boolean("open").notNull().default(false),
+    publicToEveryone:boolean("public").notNull().default(false),
   },
 );
 export const recordRelations=relations(courseRecordTable,({one})=>({

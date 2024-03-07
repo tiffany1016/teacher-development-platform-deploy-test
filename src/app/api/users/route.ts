@@ -10,7 +10,7 @@ const updateUserSchema=z.object({
   id:z.string(),
   username:z.string().optional(),
   authority:z.string().optional(),
-  available:z.boolean().optional(),
+  disable:z.boolean().optional(),
   experience:z.custom<{
     startTime:string[],
     endTime:string[],
@@ -32,10 +32,10 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
-  const { id,username,authority,available,experience,hashedPassword } = data as updateUserRequest;
+  const { id,username,authority,disable,experience,hashedPassword } = data as updateUserRequest;
   await db
     .update(usersTable)
-    .set({username,authority,available,experience,hashedPassword})
+    .set({username,authority,disable,experience,hashedPassword})
     .where(eq(usersTable.displayId, id))
   return new NextResponse("OK", { status: 200 });
 }
