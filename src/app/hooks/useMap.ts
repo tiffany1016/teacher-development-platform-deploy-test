@@ -1,36 +1,27 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function useRecord() {
+export default function useMap() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const postRecord = async ({
-    studentId,
-    courseId,
-    title,
-    discription,
-    link,
-    publicToEveryone,
+  const postMap = async ({
+    bigCategory,
+    middleCategory,
+    smallCategory,
   }: {
-    studentId: string,
-    courseId: string,
-    title: string,
-    discription?: string,
-    link?: string,
-    publicToEveryone?: boolean,
+    bigCategory:string,
+    middleCategory:string,
+    smallCategory:string,
   }) => {
     setLoading(true);
 
-    const res = await fetch("/api/courseRecord", {
+    const res = await fetch("/api/courseMap", {
       method: "POST",
       body: JSON.stringify({
-        studentId,
-        courseId,
-        title,
-        discription,
-        link,
-        publicToEveryone,
+        bigCategory,
+        middleCategory,
+        smallCategory,
       }),
     });
 
@@ -45,32 +36,23 @@ export default function useRecord() {
     router.refresh();
     setLoading(false);
   };
-  const updateRecord = async ({
-    studentId,
-    courseId,
-    title,
-    discription,
-    link,
-    publicToEveryone,
+  const updateMap = async ({
+    bigCategory,
+    middleCategory,
+    smallCategory,
   }: {
-    studentId: string,
-    courseId: string,
-    title?: string,
-    discription?: string,
-    link?: string,
-    publicToEveryone?: boolean,
+    bigCategory:string,
+    middleCategory:string,
+    smallCategory:string,
   }) => {
     setLoading(true);
 
-    const res = await fetch("/api/courseRecord", {
+    const res = await fetch("/api/courseMap", {
       method: "PUT",
       body: JSON.stringify({
-        studentId,
-        courseId,
-        title,
-        discription,
-        link,
-        publicToEveryone,
+        bigCategory,
+        middleCategory,
+        smallCategory,
       }),
     });
 
@@ -85,20 +67,17 @@ export default function useRecord() {
     router.refresh();
     setLoading(false);
   };
-  const deleteRecord = async ({
-    studentId,
-    courseId,
+  const deleteMap = async ({
+    id
   }: {
-    studentId: string,
-    courseId: string,
+    id:number,
   }) => {
     setLoading(true);
 
-    const res = await fetch("/api/courseRecord", {
+    const res = await fetch("/api/courseMap", {
       method: "DELETE",
       body: JSON.stringify({
-        studentId,
-        courseId,
+        id
       }),
     });
 
@@ -116,9 +95,9 @@ export default function useRecord() {
 
 
   return {
-    postRecord,
-    updateRecord,
-    deleteRecord,
+    postMap,
+    updateMap,
+    deleteMap,
     loading,
   };
 }
