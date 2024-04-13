@@ -5,38 +5,23 @@ export default function useUsers() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const postUser = async ({
-    id,
     username,
-    authority,
-    disable,
-    experience,
+    email,
+    phoneNumber,
     hashedPassword,
   }: {
-    id: string,
-    username?:string,
-    authority?:string,
-    disable?:boolean,
-    experience?:{
-      startTime:string[],
-      endTime:string[],
-      school:string[],
-      position:string[],
-      subject:string[],
-      role:string[],
-      feature:string[],
-    },
-    hashedPassword?:string,
+    username:string,
+    email:string,
+    phoneNumber:string,
+    hashedPassword:string,
   }) => {
     setLoading(true);
-
     const res = await fetch("/api/users", {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify({
-        id,
         username,
-        authority,
-        disable,
-        experience,
+        email,
+        phoneNumber,
         hashedPassword,
       }),
     });

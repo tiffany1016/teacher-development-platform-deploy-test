@@ -48,11 +48,9 @@ export default function useCourse() {
   const updateCourse = async ({
     courseId,
     name,
-    typeId,
   }: {
     courseId: string,
-    name: string,
-    typeId: string,
+    name?: string,
   }) => {
     setLoading(true);
 
@@ -61,7 +59,6 @@ export default function useCourse() {
       body: JSON.stringify({
         courseId,
         name,
-        typeId,
       }),
     });
 

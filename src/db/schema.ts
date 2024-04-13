@@ -9,6 +9,7 @@ import {
   varchar,
   integer,
   boolean,
+  text,
 } from "drizzle-orm/pg-core";
 export const usersTable = pgTable("users",{
     id: serial("id").primaryKey(),
@@ -18,15 +19,23 @@ export const usersTable = pgTable("users",{
     phoneNumber: varchar("phoneNumber", { length: 100 }).notNull(),
     authority:char("authority").notNull().default('A'),
     disable:boolean("disable").notNull().default(false),
-    experience:json("experience").$type<{
-      startTime:string[],
-      endTime:string[],
-      school:string[],
-      position:string[],
-      subject:string[],
-      role:string[],
-      feature:string[],
-    }>(),
+    // experience:json("experience").$type<{
+    //   startTime:string[],
+    //   endTime:string[],
+    //   school:string[],
+    //   position:string[],
+    //   subject:string[],
+    //   role:string[],
+    //   feature:string[],
+    // }>(),
+    experience:text("experience").default(JSON.stringify({startTime:[],
+      endTime:[],
+      school:[],
+      position:[],
+      subject:[],
+      role:[],
+      feature:[],}))
+      .notNull(),
     hashedPassword: varchar("hashed_password", { length: 100 }),
     provider: varchar("provider", {
       length: 100,

@@ -19,7 +19,6 @@ const postCourseSchema = z.object({
 const updateCourseSchema=z.object({
   courseId:z.string().min(1).max(50),
   name: z.string().min(1).max(50),
-  typeId: z.string(),
 });
 const deleteCourseSchema=z.object({
   courseId:z.string().min(1).max(50),
@@ -55,10 +54,10 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
-  const { courseId,name,typeId } = data as updateCourseRequest;
+  const { courseId,name } = data as updateCourseRequest;
   await db
     .update(courseTable)
-    .set({name,typeId})
+    .set({name})
     .where(eq(courseTable.courseId, courseId));
   return new NextResponse("OK", { status: 200 });
 }
