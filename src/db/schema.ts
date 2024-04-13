@@ -55,7 +55,7 @@ export const courseTable= pgTable("course",{
     teacherId:uuid("teacherId").references(()=>usersTable.displayId,{
       onUpdate: 'cascade'
     }),
-    typeId:integer("typeId").notNull().references(()=>courseMapTable.id,{
+    typeId:varchar("typeId").notNull().references(()=>courseMapTable.id,{
       onDelete: 'cascade',
       onUpdate: 'cascade'
     }),
@@ -121,7 +121,7 @@ export const recordRelations=relations(courseRecordTable,({one})=>({
   })
 }));
 export const courseMapTable=pgTable("courseMap",{
-    id:serial("id").primaryKey(),
+    id:varchar("id",{length:50}).notNull().unique(),
     bigCategory:varchar("bigCategory",{length:50}).notNull(),
     middleCategory:varchar("middleCategory",{length:50}).notNull(),
     smallCategory:varchar("smallCategory",{length:50}).notNull(),

@@ -18,7 +18,7 @@ export default function useCourse() {
     courseId:string,
     name:string,
     teacherId:string,
-    typeId:number,
+    typeId:string,
   }) => {
     setLoading(true);
 
@@ -52,7 +52,7 @@ export default function useCourse() {
   }: {
     courseId: string,
     name: string,
-    typeId: number,
+    typeId: string,
   }) => {
     setLoading(true);
 

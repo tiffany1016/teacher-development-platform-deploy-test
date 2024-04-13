@@ -14,12 +14,12 @@ const postCourseSchema = z.object({
   courseId: z.string().min(1).max(50),
   name: z.string().min(1).max(100),
   teacherId:z.string(),
-  typeId: z.number(),
+  typeId: z.string(),
 });
 const updateCourseSchema=z.object({
   courseId:z.string().min(1).max(50),
   name: z.string().min(1).max(50),
-  typeId: z.number(),
+  typeId: z.string(),
 });
 const deleteCourseSchema=z.object({
   courseId:z.string().min(1).max(50),

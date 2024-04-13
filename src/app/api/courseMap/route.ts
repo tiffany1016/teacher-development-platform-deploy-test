@@ -9,18 +9,19 @@ import { courseMapTable } from "@/db/schema";
 import { z } from "zod";
 
 const postMapSchema = z.object({
+  id:z.string(),
   bigCategory:z.string(),
   middleCategory:z.string(),
   smallCategory:z.string(),
 });
 const updateMapSchema=z.object({
-  id:z.number(),
-  bigCategory:z.string(),
-  middleCategory:z.string(),
-  smallCategory:z.string(),
+  id:z.string(),
+  bigCategory:z.string().optional(),
+  middleCategory:z.string().optional(),
+  smallCategory:z.string().optional(),
 });
 const deleteMapSchema=z.object({
-  id:z.number(),
+  id:z.string(),
 });
 type PostMapRequest = z.infer<typeof postMapSchema>;
 type updateMapRequest = z.infer<typeof updateMapSchema>;
@@ -32,10 +33,11 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
-  const { bigCategory,middleCategory,smallCategory} = data as PostMapRequest;
+  const { id,bigCategory,middleCategory,smallCategory} = data as PostMapRequest;
   await db
     .insert(courseMapTable)
     .values({
+      id,
       bigCategory,
       middleCategory,
       smallCategory,

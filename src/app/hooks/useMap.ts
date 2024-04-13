@@ -6,10 +6,12 @@ export default function useMap() {
   const router = useRouter();
 
   const postMap = async ({
+    id,
     bigCategory,
     middleCategory,
     smallCategory,
   }: {
+    id:string,
     bigCategory:string,
     middleCategory:string,
     smallCategory:string,
@@ -19,6 +21,7 @@ export default function useMap() {
     const res = await fetch("/api/courseMap", {
       method: "POST",
       body: JSON.stringify({
+        id,
         bigCategory,
         middleCategory,
         smallCategory,
@@ -37,19 +40,22 @@ export default function useMap() {
     setLoading(false);
   };
   const updateMap = async ({
+    id,
     bigCategory,
     middleCategory,
     smallCategory,
   }: {
-    bigCategory:string,
-    middleCategory:string,
-    smallCategory:string,
+    id:string,
+    bigCategory?:string,
+    middleCategory?:string,
+    smallCategory?:string,
   }) => {
     setLoading(true);
 
     const res = await fetch("/api/courseMap", {
       method: "PUT",
       body: JSON.stringify({
+        id,
         bigCategory,
         middleCategory,
         smallCategory,
