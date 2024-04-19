@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import ChangePasswordDialog from "./_components/ChangePasswordDialog";
 import AboutAdminInfo from "./_components/AboutAdminInfo";
 import AboutMeInfo from "./_components/AboutMeInfo";
+import { BasicButton } from "../_components/BasicButton";
 export default async function AboutMe(){
   const session = await auth();
   return(
@@ -18,12 +19,7 @@ export default async function AboutMe(){
           <div className="text-xl font-bold">
             {session?.user?.username}
           </div>
-          <a href="/auth/signout"
-            className="cursor-pointer justify-self-center text-center w-24 py-1 text-white text-sm rounded-full hover:opacity-80"
-            style={{backgroundColor: INDIGO}}
-          >
-            登出
-          </a>
+          <BasicButton href="/auth/signout" text="登出" dark={true} />
           { session?.user?.authority === ADMIN && <ChangePasswordDialog /> }
         </div>
         { session?.user?.authority === ADMIN ? <AboutAdminInfo /> : <AboutMeInfo /> }
