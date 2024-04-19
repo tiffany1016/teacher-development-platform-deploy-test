@@ -1,4 +1,12 @@
 ## Getting Started
+
+1. Copy `/.env.example` in the root directory, rename to `/.env.local`. It should be like
+```bash
+AUTH_SECRET="jsvcldihnp3wor8evnpoasdf4tbowheivfspdnu"  # any random chars
+
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+2. in terminal
 ```bash
 # install dependencies
 yarn 
@@ -13,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | 帳號 | 密碼 |
 | ---- | ---- |
 | one@gmail.com | 1234 |
-| three@gmail.com | 3333 |
+| chengzhi@chengzhiedu.org | kist |
 1. standard colors
     - usage:
 ```import { INDIGO, ORANGE } from "@/lib/constants";```
