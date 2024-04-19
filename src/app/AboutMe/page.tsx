@@ -19,7 +19,7 @@ export default async function AboutMe(){
           <div className="text-xl font-bold">
             {session?.user?.username}
           </div>
-          <BasicButton href="/auth/signout" text="登出" dark={true} />
+          <BasicButton href="/auth/signout" text="登出" dark={true} width="100px" />
           { session?.user?.authority === ADMIN && <ChangePasswordDialog /> }
         </div>
         { session?.user?.authority === ADMIN ? <AboutAdminInfo /> : <AboutMeInfo /> }
