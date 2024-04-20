@@ -7,6 +7,8 @@ export const PINK = rgbToHex(219,83,101);
 export const ORANGE = rgbToHex(234,140,46);
 export const GREEN = rgbToHex(183,184,51);
 export const TIFFANY = rgbToHex(46,182,170);
+export const LIGHT_GREY = "#f8f8f8";
+export const WHITE = "#ffffff";
 
 // authority
 export const ADMIN = "A";
