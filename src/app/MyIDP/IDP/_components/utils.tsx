@@ -1,41 +1,69 @@
-import { object } from "zod";
+import { v4 as uuidv4 } from 'uuid';
+
+export interface Cell {
+    id: string,        // <time>
+    type: string,      // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
+    bold: Boolean,     // true|false
+    color: string,     // light|dark
+    history: string,   // <對應"歷史填答"資料id>
+    more: string,      // <"更多"內容>
+    size: string,      // L|M|S
+    content: string,   // <附屬資料>
+    rowSpan: string,   // <寬>|full
+    colSpan: string,   // <高>|full
+}
 
 const initCell = {
-    id: "",           // <hashed-time>
-    type: "文字",         // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
-    bold: false,      // true|false
-    color: "light",   // light|dark
-    history: "",      // <對應"歷史填答"資料id>
-    more: "",         // <"更多"內容>
-    size: "S",        // L|M|S
-    content: ".",      // <附屬資料>
-    rowSpan: 1,       // 寬
-    colSpan: 1,       // 高
+    id: "",
+    type: "文字",     
+    bold: false,    
+    color: "light",   
+    history: "",     
+    more: "",      
+    size: "S",    
+    content: ".", 
+    rowSpan: "1",
+    colSpan: "1"
 };
-const nullCell = {
-    id: "",           // <hashed-time>
-    type: "null",         // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
-    bold: false,      // true|false
-    color: "light",   // light|dark
-    history: "",      // <對應"歷史填答"資料id>
-    more: "",         // <"更多"內容>
-    size: "S",        // L|M|S
-    content: ".",      // <附屬資料>
-    rowSpan: 1,       // 寬
-    colSpan: 1,       // 高
+let nullCell = {
+    id: "",
+    type: "null",     
+    bold: false,    
+    color: "light",   
+    history: "",     
+    more: "",      
+    size: "S",    
+    content: ".", 
+    rowSpan: "1",
+    colSpan: "1"
 };
 const sectionCell = {
-    id: "",           // <hashed-time>
-    type: "段落標題",         // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
-    bold: true,      // true|false
-    color: "dark",   // light|dark
-    history: "",      // <對應"歷史填答"資料id>
-    more: "",         // <"更多"內容>
-    size: "L",        // L|M|S
-    content: "Part",      // <附屬資料>
-    rowSpan: "full",       // <寬>|full
-    colSpan: "1",       // <高>|full
+    id: "",
+    type: "段落標題",     
+    bold: true,    
+    color: "dark",   
+    history: "",     
+    more: "",      
+    size: "L",    
+    content: "Part", 
+    rowSpan: "full",
+    colSpan: "1"
 };
+function newCell(type:string) {
+    let cell:Cell = initCell;
+    switch(type) {
+        case "section":
+            cell = sectionCell;
+            break;
+        case "null":
+            cell = nullCell;
+            break;
+        default:
+            break;
+    }
+    cell.id = uuidv4();
+    return JSON.parse(JSON.stringify(cell));
+}
 /* 
 段落標題(文字:"") 
 文字(文字:"") 
@@ -45,28 +73,35 @@ const sectionCell = {
 勾選題(文字:"")
 */
 // add in front of #index
-export function newSection(data:object[][], index:number) {
-    const _firstRow:object[] = [sectionCell,nullCell,nullCell,nullCell];
-    const _row:object[] = [initCell,initCell,initCell,initCell];
-    return [_firstRow,_row,_row,_row];
+export function newSection(data:Cell[][], index:number) {
+    const _firstRow:Cell[] = [(newCell("section")),(newCell("null")),(newCell("section")),(newCell("null"))];
+    data = [...data,_firstRow];
+    Array.from(Array(3)).forEach(() => {
+        const _row:Cell[] = [];
+        Array.from(Array(4)).forEach(() => {
+            _row.push(newCell("init"));
+        });
+        data = [...data,_row];
+    })
+    return data;
 }
-export function addRow(data:object[][], index:number) {
+export function addRow(data:Cell[][], index:number) {
     const cols = data[0].length;
-    const _row:object[] = [];
+    const _row:Cell[] = [];
     Array.from(Array(cols)).forEach(() => {
-        _row.push(initCell);
+        _row.push(newCell("init"));
     });
     return [...data,_row];
 }
-export function delRow(data:object[][], index:number) {
+export function delRow(data:Cell[][], index:number) {
 
     return data;
 }
-export function addCol(data:object[][], index:number) {
+export function addCol(data:Cell[][], index:number) {
     
     return data;
 }
-export function delCol(data:object[][], index:number) {
+export function delCol(data:Cell[][], index:number) {
 
     return data;
 }

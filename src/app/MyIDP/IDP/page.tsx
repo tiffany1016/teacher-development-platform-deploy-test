@@ -2,46 +2,39 @@
 import {Button} from "@/components/ui/button";
 import { INDIGO, LIGHT_BLUE, LIGHT_GREY, WHITE } from "@/lib/constants";
 import { useEffect, useState } from "react";
-import { newSection } from "./_components/utils";
+import { newSection, Cell } from "./_components/utils";
+import { BasicButton } from "@/app/_components/BasicButton";
 
-export default async function IDPEdit(){
-  // const [data,setData] = useState(newSection([],0));
+export default function IDPEdit(){
+  const [data,setData] = useState<Cell[][]>([]);
+  const [selected,setSelected] = useState<string[]>([]);
 
-  const data = [["a","b","c","d","e","f"],
-                ["2","3","6"],
-                ["4","5","6"],
-                ["2","3","6"],
-                ["2","5","6"],
-                ["2","3","4"],
-                ["2","3","4"],
-                ["4","5","6"],
-                ["2","5","6"],
-                ["2","5","6"]];
-  const label = data[0];
-  const content = data.slice(1);
+  const handleChecked = (id:string) => {
+    if (selected.includes(id)) {
+      const index = selected.indexOf(id);
+      setSelected(selected.filter((_id) => _id != id));
+    }
+    else {
+      setSelected([...selected,id])
+    }
+  };
+
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
         <p className="text-3xl text-[#013E6E]">IDP</p>
       </div>
-      <table bgcolor={LIGHT_GREY}>
-        <caption>
-          Front-end web developer course 2021
-        </caption>
-        <thead>
-          <tr>
-            {label.map((cell)=>(
-                <th scope="col">{cell}</th>
-            ))}
-          </tr>
-        </thead>
+      <BasicButton text="addSection" dark={false} width="100px" onClick={()=>{setData(newSection(data,0))}} />
+      <table>
         <tbody>
-          {content.map((row)=>(
-            <tr>
-              {row.map((cell)=>(
-                <td style={{border: "2px solid white"}} colSpan={2}>
-                  <input type="checkbox" />
-                  {cell}
+          {data.length>0 && data.map((row,i)=>(
+            <tr key={"row"+i}>
+              {row.length>0 && row.map((cell,j)=>(
+                <td key={"cell"+j} className="px-2 py-1 justify-self-center" style={{border: "2px solid white",backgroundColor: selected.includes(cell.id)?"white":LIGHT_GREY}} colSpan={2}>
+                  <div className="flex items-end" onClick={() => handleChecked(cell.id)}>
+                    {/* <input type="checkbox" onChange={() => handleChecked(cell.id)} /> */}
+                    {cell.content}
+                  </div>
                 </td>
               ))}
             </tr>
