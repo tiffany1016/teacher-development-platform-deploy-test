@@ -86,7 +86,7 @@ export function newSection(data:Cell[][], selected:string[]) {
     return data;
 }
 export function addRow(data:Cell[][], selected:string[]) {
-    const cols = data[0].length;
+    const cols = (data[0].length===0)?4:data[0].length;
     const _row:Cell[] = [];
     Array.from(Array(cols)).forEach(() => {
         _row.push(newCell("init"));

@@ -4,10 +4,14 @@ import { INDIGO, INDIGO_1, LIGHT_BLUE, LIGHT_GREY } from "@/lib/constants";
 import { useEffect, useState } from "react";
 import { newSection, Cell, addRow } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
+import { Pencil } from "react-flaticons";
+import EditCellDialog from "./_components/EditCellDialog";
 
 export default function IDPEdit(){
   const [data,setData] = useState<Cell[][]>([]);
   const [selected,setSelected] = useState<string[]>([]);
+  const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
+  const [editCell,setEditCell] = useState<Cell>();
   const type = ["文字","自由填答","單選題","多選題","勾選題"];
 
   const handleCheck = (id:string) => {
@@ -33,21 +37,23 @@ export default function IDPEdit(){
       setSelected([...selected,id])
     }
   };
-  const handleSelect = (i:number, j:number, id:string, type:string) => {
-    if(data[i][j].id !== id) {
-      console.log("id error")
-      return;
-    }
-    setData(data.map((row)=>(
+  const handleSelect = (type:string, cell:Cell) => {
+    setData(updateCell(cell.id,{
+      ...cell,
+      type: type,
+      content: ""
+    }));
+  }
+  const handleEdit = (cell:Cell) => {
+    setEditCell(cell);
+    setEditCellDialogOpen(true);
+  }
+  const updateCell = (id:string, newCell:Cell) => {
+    return data.map((row)=>(
       row.map((cell) => (
-        cell.id === id ? {
-          ...cell,
-          type: type,
-          content: ""
-        } :
-        {...cell}
+        cell.id === id ? newCell : {...cell}
       ))
-    )));
+    ))
   }
   return(
     <div className="grid h-full p-16">
@@ -57,7 +63,7 @@ export default function IDPEdit(){
       <div className="flex justify-center gap-2 pb-2">
         <div className="flex gap-0.5"> 
           <BasicButton text="插入 列" onClick={()=>{setData(addRow(data,selected))}} />
-          <BasicButton text="/欄" onClick={()=>{setData(addRow(data,selected))}} />
+          <BasicButton text="/欄" />
           <BasicButton text="/段落" onClick={()=>{setData(newSection(data,selected))}} />
         </div>
         <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
@@ -80,14 +86,18 @@ export default function IDPEdit(){
                   <div className="flex items-center gap-2">
                     {cell.type!=="段落標題" && <div>
                       <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
-                      <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(i,j,cell.id,e.target.value) }>
+                      <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
                         {type.map((t,k) => (
                           <option key={"type"+k} value={t}>{t}</option>
                         ))}
                       </select>
                     </div>}
+                    <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(cell)}>
+                      <Pencil size={11} color="#9c9c9c" />
+                    </div>
                     <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
-                      {cell.content}
+                      {cell.content}  
+                      {/* {cell.type==="文字" && <textarea className="px-1" style={{width:"auto"}} placeholder=" Aa"></textarea>} */}
                     </div>
                   </div>
                 </td>)
@@ -96,6 +106,7 @@ export default function IDPEdit(){
           ))}
         </tbody>
       </table>
+      <EditCellDialog cell={editCell} open={editCellDialogOpen} setOpen={setEditCellDialogOpen} />
     </div>
   );
 }
