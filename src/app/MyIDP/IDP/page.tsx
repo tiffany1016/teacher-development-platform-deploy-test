@@ -77,24 +77,7 @@ export default function IDPEdit(){
               ))}
             </tr>
           ))}
-          {/* <tr>
-            <th scope="row">Chris</th>
-            <td colSpan={2} rowSpan={2}>HTML tables</td>
-            <td>22</td>
-            <td colSpan={2}>HTML tables</td>
-          </tr>
-          <tr>
-            <th scope="row">Chris</th>
-            <td>22</td>
-            <td colSpan={2}>HTML tables</td>
-          </tr> */}
         </tbody>
-        {/* <tfoot>
-          <tr>
-            <th scope="row" colSpan={2}>Average age</th>
-            <td>33</td>
-          </tr>
-        </tfoot> */}
       </table>
     </div>
   );
