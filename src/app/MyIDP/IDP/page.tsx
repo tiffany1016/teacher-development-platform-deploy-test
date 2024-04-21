@@ -6,6 +6,13 @@ import { newSection, Cell, addRow, updateCell, initCell } from "./_components/ut
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export default function IDPEdit(){
   const [data,setData] = useState<Cell[][]>([]);
@@ -13,6 +20,9 @@ export default function IDPEdit(){
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
   const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
   const type = ["文字","自由填答","單選題","多選題","勾選題"];
+  const textType = ["段落標題","文字","勾選題"];
+  const selectType = ["單選題","多選題"];
+  // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
 
   const handleCheck = (id:string) => {
     if (id === "none") {
@@ -40,7 +50,7 @@ export default function IDPEdit(){
     setData(updateCell(data,cell.id,{
       ...cell,
       type: type,
-      content: (type.includes("選題")?"[]":"")
+      content: (selectType.includes(type)?"[]":"")
     }));
   }
   const handleEdit = (i:number,j:number) => {
@@ -61,42 +71,62 @@ export default function IDPEdit(){
         <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
         <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
       </div>
-      <table>
-        <tbody>
-          {data.length>0 && data.map((row,i)=>(
-            <tr key={"row"+i}>
-              {row.length>0 && row.map((cell,j)=>(
-                (cell.type!=="null" && <td key={"cell"+j} 
-                  className="px-2 py-1 justify-self-center" 
-                  style={{
-                    border: "2px solid white",
-                    backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
-                  }}
-                    colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
-                    rowSpan={parseInt(cell.rowSpan)}
-                    >
-                  <div className="flex items-center gap-2">
-                    {cell.type!=="段落標題" && <div>
-                      <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
-                      <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
-                        {type.map((t,k) => (
-                          <option key={"type"+k} value={t}>{t}</option>
-                        ))}
-                      </select>
-                    </div>}
-                    <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
-                      <Pencil size={11} color="#9c9c9c" />
+      <div className="overflow-x-auto" style={{width:"100%"}}>
+        <table className="w-full">
+          <tbody>
+            {data.length>0 && data.map((row,i)=>(
+              <tr key={"row"+i}>
+                {row.length>0 && row.map((cell,j)=>(
+                  (cell.type!=="null" && <td key={"cell"+j} 
+                    className="px-2 py-1 justify-self-center" 
+                    style={{
+                      border: "2px solid white",
+                      backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
+                    }}
+                      colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
+                      rowSpan={parseInt(cell.rowSpan)}
+                      >
+                    <div className="flex items-center gap-2">
+                      {cell.type!=="段落標題" && <div>
+                        <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
+                        <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
+                          {type.map((t,k) => (
+                            <option key={"type"+k} value={t}>{t}</option>
+                          ))}
+                        </select>
+                      </div>}
+                      <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
+                        <Pencil size={11} color="#9c9c9c" />
+                      </div>
+                      <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                        {/* 段落標題|文字|自由填答|單選題|多選題|勾選題|null */}
+                        {textType.includes(cell.type) && <div className="flex gap-1">
+                          {cell.type==="勾選題" && <input type="checkbox"/>}
+                          {cell.content}
+                        </div>}
+                        {selectType.includes(cell.type) && JSON.parse(cell.content).length>0 && 
+                          <Select>
+                            <SelectTrigger className="max-w-max h-min py-1 min-w-full">
+                              <SelectValue placeholder={JSON.parse(cell.content)[0]??""} />
+                            </SelectTrigger>
+                            <SelectContent className="break-all max-w-screen-sm">
+                              {JSON.parse(cell.content).map((option:string,i:number)=>(
+                                <>
+                                  {option!=="" && <SelectItem key={"option"+i} value={option}>{option}</SelectItem>}
+                                </>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        }
+                      </div>
                     </div>
-                    <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
-                      {cell.content}
-                    </div>
-                  </div>
-                </td>)
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  </td>)
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {data.length>0 && <EditCellDialog data={data} cell={data[editCellIndex[0]][editCellIndex[1]]} open={editCellDialogOpen} setOpen={setEditCellDialogOpen} setData={setData} />}
     </div>
   );
