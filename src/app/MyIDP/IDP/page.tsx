@@ -10,7 +10,7 @@ export default function IDPEdit(){
   const [selected,setSelected] = useState<string[]>([]);
   const type = ["文字","自由填答","單選題","多選題","勾選題"];
 
-  const handleChecked = (id:string) => {
+  const handleCheck = (id:string) => {
     if (id === "none") {
       setSelected([])
       return
@@ -33,7 +33,22 @@ export default function IDPEdit(){
       setSelected([...selected,id])
     }
   };
-  
+  const handleSelect = (i:number, j:number, id:string, type:string) => {
+    if(data[i][j].id !== id) {
+      console.log("id error")
+      return;
+    }
+    setData(data.map((row)=>(
+      row.map((cell) => (
+        cell.id === id ? {
+          ...cell,
+          type: type,
+          content: ""
+        } :
+        {...cell}
+      ))
+    )));
+  }
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
@@ -45,8 +60,8 @@ export default function IDPEdit(){
           <BasicButton text="/欄" onClick={()=>{setData(addRow(data,selected))}} />
           <BasicButton text="/段落" onClick={()=>{setData(newSection(data,selected))}} />
         </div>
-        <BasicButton text="全選" onClick={()=>{handleChecked("all")}} />
-        <BasicButton text="取消選擇" onClick={()=>{handleChecked("none")}} />
+        <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
+        <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
       </div>
       <table>
         <tbody>
@@ -64,14 +79,16 @@ export default function IDPEdit(){
                     >
                   <div className="flex items-center gap-2">
                     {cell.type!=="段落標題" && <div>
-                      <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleChecked(cell.id)} />
-                      <select style={{fontSize: "12px"}}>
-                        {type.map((t) => (
-                          <option value={t}>{t}</option>
+                      <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
+                      <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(i,j,cell.id,e.target.value) }>
+                        {type.map((t,k) => (
+                          <option key={"type"+k} value={t}>{t}</option>
                         ))}
                       </select>
                     </div>}
-                    <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>{cell.content}</div>
+                    <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                      {cell.content}
+                    </div>
                   </div>
                 </td>)
               ))}
