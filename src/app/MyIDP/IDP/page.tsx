@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import { INDIGO, INDIGO_1, LIGHT_BLUE, LIGHT_GREY } from "@/lib/constants";
 import { useEffect, useState } from "react";
-import { newSection, Cell, addRow, updateCell } from "./_components/utils";
+import { newSection, Cell, addRow, updateCell, initCell } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
@@ -11,7 +11,7 @@ export default function IDPEdit(){
   const [data,setData] = useState<Cell[][]>([]);
   const [selected,setSelected] = useState<string[]>([]);
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
-  const [editCell,setEditCell] = useState<Cell>();
+  const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
   const type = ["文字","自由填答","單選題","多選題","勾選題"];
 
   const handleCheck = (id:string) => {
@@ -40,11 +40,11 @@ export default function IDPEdit(){
     setData(updateCell(data,cell.id,{
       ...cell,
       type: type,
-      content: ""
+      content: (type.includes("選題")?"[]":"")
     }));
   }
-  const handleEdit = (cell:Cell) => {
-    setEditCell(cell);
+  const handleEdit = (i:number,j:number) => {
+    setEditCellIndex([i,j]);
     setEditCellDialogOpen(true);
   }
   return(
@@ -84,12 +84,11 @@ export default function IDPEdit(){
                         ))}
                       </select>
                     </div>}
-                    <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(cell)}>
+                    <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
                       <Pencil size={11} color="#9c9c9c" />
                     </div>
                     <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
-                      {cell.content}  
-                      {/* {cell.type==="文字" && <textarea className="px-1" style={{width:"auto"}} placeholder=" Aa"></textarea>} */}
+                      {cell.content}
                     </div>
                   </div>
                 </td>)
@@ -98,7 +97,7 @@ export default function IDPEdit(){
           ))}
         </tbody>
       </table>
-      <EditCellDialog cell={editCell} open={editCellDialogOpen} setOpen={setEditCellDialogOpen} />
+      {data.length>0 && <EditCellDialog data={data} cell={data[editCellIndex[0]][editCellIndex[1]]} open={editCellDialogOpen} setOpen={setEditCellDialogOpen} setData={setData} />}
     </div>
   );
 }

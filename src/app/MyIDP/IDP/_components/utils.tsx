@@ -13,7 +13,7 @@ export interface Cell {
     colSpan: string,   // <高>|full
 }
 
-const initCell = {
+export const initCell = {
     id: "",
     type: "文字",     
     bold: false,    
@@ -106,6 +106,7 @@ export function delCol(data:Cell[][], selected:string[]) {
     return data;
 }
 export function updateCell(data:Cell[][], id:string, newCell:Cell) {
+    console.log(newCell);
     return data.map((row)=>(
         row.map((cell) => (
         cell.id === id ? newCell : {...cell}
