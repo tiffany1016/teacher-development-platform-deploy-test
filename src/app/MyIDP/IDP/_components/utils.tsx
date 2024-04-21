@@ -105,3 +105,10 @@ export function delCol(data:Cell[][], selected:string[]) {
 
     return data;
 }
+export function updateCell(data:Cell[][], id:string, newCell:Cell) {
+    return data.map((row)=>(
+        row.map((cell) => (
+        cell.id === id ? newCell : {...cell}
+        ))
+    ))
+}

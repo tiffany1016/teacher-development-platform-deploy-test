@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import { INDIGO, INDIGO_1, LIGHT_BLUE, LIGHT_GREY } from "@/lib/constants";
 import { useEffect, useState } from "react";
-import { newSection, Cell, addRow } from "./_components/utils";
+import { newSection, Cell, addRow, updateCell } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
@@ -30,7 +30,6 @@ export default function IDPEdit(){
       return
     }
     if (selected.includes(id)) {
-      const index = selected.indexOf(id);
       setSelected(selected.filter((_id) => _id != id));
     }
     else {
@@ -38,7 +37,7 @@ export default function IDPEdit(){
     }
   };
   const handleSelect = (type:string, cell:Cell) => {
-    setData(updateCell(cell.id,{
+    setData(updateCell(data,cell.id,{
       ...cell,
       type: type,
       content: ""
@@ -47,13 +46,6 @@ export default function IDPEdit(){
   const handleEdit = (cell:Cell) => {
     setEditCell(cell);
     setEditCellDialogOpen(true);
-  }
-  const updateCell = (id:string, newCell:Cell) => {
-    return data.map((row)=>(
-      row.map((cell) => (
-        cell.id === id ? newCell : {...cell}
-      ))
-    ))
   }
   return(
     <div className="grid h-full p-16">
