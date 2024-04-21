@@ -14,14 +14,19 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+import { MultiSelect } from 'primereact/multiselect';
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+        
+
 export default function IDPEdit(){
   const [data,setData] = useState<Cell[][]>([]);
   const [selected,setSelected] = useState<string[]>([]);
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
   const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
-  const type = ["文字","自由填答","單選題","多選題","勾選題"];
+  const type = ["文字","自由填答","單選題","勾選題"];
   const textType = ["段落標題","文字","勾選題"];
-  const selectType = ["單選題","多選題"];
+  const selectType = ["單選題"];
   // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
 
   const handleCheck = (id:string) => {
@@ -57,6 +62,13 @@ export default function IDPEdit(){
     setEditCellIndex([i,j]);
     setEditCellDialogOpen(true);
   }
+  const cities = [
+    { name: 'New York', code: 'NY' },
+    { name: 'Rome', code: 'RM' },
+    { name: 'London', code: 'LDN' },
+    { name: 'Istanbul', code: 'IST' },
+    { name: 'Paris', code: 'PRS' }
+];
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
@@ -81,13 +93,15 @@ export default function IDPEdit(){
                     className="px-2 py-1 justify-self-center" 
                     style={{
                       border: "2px solid white",
+                      borderTopRightRadius: (cell.type==="段落標題"?"10px":"0px"),
+                      borderTopLeftRadius: (cell.type==="段落標題"?"10px":"0px"),
                       backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
                     }}
                       colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
                       rowSpan={parseInt(cell.rowSpan)}
-                      >
+                    >
                     <div className="flex items-center gap-2">
-                      {cell.type!=="段落標題" && <div>
+                      {cell.type!=="段落標題" && <div className="flex">
                         <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
                         <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
                           {type.map((t,k) => (
@@ -98,7 +112,7 @@ export default function IDPEdit(){
                       <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
                         <Pencil size={11} color="#9c9c9c" />
                       </div>
-                      <div style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                      <div className="w-full" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
                         {/* 段落標題|文字|自由填答|單選題|多選題|勾選題|null */}
                         {textType.includes(cell.type) && <div className="flex gap-1">
                           {cell.type==="勾選題" && <input type="checkbox"/>}
@@ -118,6 +132,7 @@ export default function IDPEdit(){
                             </SelectContent>
                           </Select>
                         }
+                        {cell.type==="自由填答" && <Textarea className="w-full py-1 px-1" style={{height:"32px"}} placeholder={cell.content} />}
                       </div>
                     </div>
                   </td>)

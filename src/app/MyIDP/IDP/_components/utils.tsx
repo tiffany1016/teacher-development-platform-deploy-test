@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 export interface Cell {
     id: string,        // <time>
-    type: string,      // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
+    type: string,      // 段落標題|文字|自由填答|單選題|勾選題|null
     bold: Boolean,     // true|false
     color: string,     // light|dark
     history: string,   // <對應"歷史填答"資料id>
