@@ -31,9 +31,7 @@ export default CredentialsProvider({
     const existedUser = userIndex !== -1;
     if (!existedUser) {
       console.log("invalid email");
-      return {
-        email: null,
-      };
+      return null;
     }
     const user = USERS[userIndex];
     
@@ -41,12 +39,13 @@ export default CredentialsProvider({
 
     if (!isValid) {
       console.log("Wrong password. Try again.");
-      return {
-        email: null,
-      };
+      return null;
     }
     return {
       email: userEmail,
+      mobile: user.mobile,
+      authority: user.authority,
+      username: user.username
     };
   },
 });

@@ -1,9 +1,9 @@
 "use client";
 import {Button} from "@/components/ui/button";
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 export default function CourseDialog() {
   const router=useRouter();
-  const handleClick=()=>{
+  const handleClick=async()=>{
     console.log("redirect");
     router.push("/CourseHistory/ExportHistory");
   }

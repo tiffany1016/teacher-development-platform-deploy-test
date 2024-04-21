@@ -1,7 +1,19 @@
 ## Getting Started
+
+1. Copy `/.env.example` in the root directory, rename to `/.env.local`. It should be like
+```bash
+AUTH_SECRET="jsvcldihnp3wor8evnpoasdf4tbowheivfspdnu"  # any random chars
+POSTGRES_URL=postgres://postgres:postgres@localhost:5432/teacher-development-platform
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+```
+4. open Docker Desktop
+5. in terminal
 ```bash
 # install dependencies
 yarn 
+
+docker compose up -d
+yarn migrate
 
 # run the website
 yarn dev
@@ -13,7 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 | 帳號 | 密碼 |
 | ---- | ---- |
 | one@gmail.com | 1234 |
-| three@gmail.com | 3333 |
+| chengzhi@chengzhiedu.org | kist |
 1. standard colors
     - usage:
 ```import { INDIGO, ORANGE } from "@/lib/constants";```

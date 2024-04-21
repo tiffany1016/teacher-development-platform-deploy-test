@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-export default async function UserAvatar({size}: { size: number, userEmail: string }) {
+export default function UserAvatar({size}: { size: number, userEmail: string }) {
   // const { userEmail } = props;
 
   return (

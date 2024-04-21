@@ -9,13 +9,11 @@ import { publicEnv } from "@/lib/env/public";
 
 function SignOutPage() {
   const { data: session } = useSession();
-  const router = useRouter();
   useEffect(() => {
     if (session) {
       signOut({ callbackUrl: publicEnv.NEXT_PUBLIC_BASE_URL });
     }
-    router.push("/");
-  }, [session, router]);
+  }, [session]);
 
   return <></>;
 }
