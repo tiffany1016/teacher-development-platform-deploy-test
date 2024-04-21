@@ -7,7 +7,7 @@ export interface Cell {
     color: string,     // light|dark
     history: string,   // <對應"歷史填答"資料id>
     more: string,      // <"更多"內容>
-    size: string,      // L|M|S
+    size: number,      // "10px"(L)|(M)|(S)
     content: string,   // <附屬資料>
     rowSpan: string,   // <寬>|full
     colSpan: string,   // <高>|full
@@ -20,8 +20,8 @@ const initCell = {
     color: "light",   
     history: "",     
     more: "",      
-    size: "S",    
-    content: ".", 
+    size: 15,    
+    content: "內容", 
     rowSpan: "1",
     colSpan: "1"
 };
@@ -32,8 +32,8 @@ let nullCell = {
     color: "light",   
     history: "",     
     more: "",      
-    size: "S",    
-    content: ".", 
+    size: 0,    
+    content: "", 
     rowSpan: "1",
     colSpan: "1"
 };
@@ -44,10 +44,10 @@ const sectionCell = {
     color: "dark",   
     history: "",     
     more: "",      
-    size: "L",    
+    size: 18,    
     content: "Part", 
-    rowSpan: "full",
-    colSpan: "1"
+    rowSpan: "1",
+    colSpan: "full"
 };
 function newCell(type:string) {
     let cell:Cell = initCell;
@@ -73,8 +73,8 @@ function newCell(type:string) {
 勾選題(文字:"")
 */
 // add in front of #index
-export function newSection(data:Cell[][], index:number) {
-    const _firstRow:Cell[] = [(newCell("section")),(newCell("null")),(newCell("section")),(newCell("null"))];
+export function newSection(data:Cell[][], selected:string[]) {
+    const _firstRow:Cell[] = [(newCell("section")),(newCell("null")),(newCell("null")),(newCell("null"))];
     data = [...data,_firstRow];
     Array.from(Array(3)).forEach(() => {
         const _row:Cell[] = [];
@@ -85,7 +85,7 @@ export function newSection(data:Cell[][], index:number) {
     })
     return data;
 }
-export function addRow(data:Cell[][], index:number) {
+export function addRow(data:Cell[][], selected:string[]) {
     const cols = data[0].length;
     const _row:Cell[] = [];
     Array.from(Array(cols)).forEach(() => {
@@ -93,15 +93,15 @@ export function addRow(data:Cell[][], index:number) {
     });
     return [...data,_row];
 }
-export function delRow(data:Cell[][], index:number) {
+export function delRow(data:Cell[][], selected:string[]) {
 
     return data;
 }
-export function addCol(data:Cell[][], index:number) {
+export function addCol(data:Cell[][], selected:string[]) {
     
     return data;
 }
-export function delCol(data:Cell[][], index:number) {
+export function delCol(data:Cell[][], selected:string[]) {
 
     return data;
 }
