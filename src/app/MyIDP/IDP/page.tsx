@@ -2,7 +2,7 @@
 import {Button} from "@/components/ui/button";
 import { INDIGO, INDIGO_1, LIGHT_BLUE, LIGHT_GREY } from "@/lib/constants";
 import { useEffect, useState } from "react";
-import { newSection, Cell, addRow, updateCell, initCell } from "./_components/utils";
+import { newSection, Cell, addRow, updateCell, initCell, checkInARange, setToNullThenSpan } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
@@ -24,10 +24,11 @@ export default function IDPEdit(){
   const [selected,setSelected] = useState<string[]>([]);
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
   const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
+  const [preview,setPreview] = useState(false);
   const type = ["文字","自由填答","單選題","勾選題"];
   const textType = ["段落標題","文字","勾選題"];
   const selectType = ["單選題"];
-  // 段落標題|文字|自由填答|單選題|多選題|勾選題|null
+  // 段落標題|文字|自由填答|單選題|勾選題|null
 
   const handleCheck = (id:string) => {
     if (id === "none") {
@@ -62,13 +63,19 @@ export default function IDPEdit(){
     setEditCellIndex([i,j]);
     setEditCellDialogOpen(true);
   }
-  const cities = [
-    { name: 'New York', code: 'NY' },
-    { name: 'Rome', code: 'RM' },
-    { name: 'London', code: 'LDN' },
-    { name: 'Istanbul', code: 'IST' },
-    { name: 'Paris', code: 'PRS' }
-];
+  const handleCombine = () => {
+    if (selected.length === 0) {
+      alert("請選擇要合併的儲存格");
+      return;
+    }
+    const {inARange,rowSpan,colSpan,leftTopIndex,error} = checkInARange(data,selected);
+    if (!inARange) {
+      alert(error);
+      return;
+    }
+    handleCheck("none");
+    setData(setToNullThenSpan(data, rowSpan,colSpan,leftTopIndex));
+  }
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
@@ -80,8 +87,10 @@ export default function IDPEdit(){
           <BasicButton text="/欄" />
           <BasicButton text="/段落" onClick={()=>{setData(newSection(data,selected))}} />
         </div>
+        <BasicButton text="合併" onClick={()=>{handleCombine()}} />
         <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
         <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
+        <BasicButton text="console.log" onClick={()=>{console.log(data)}} />
       </div>
       <div className="overflow-x-auto" style={{width:"100%"}}>
         <table className="w-full">

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Cell, updateCell } from "./utils";
 import { BasicButton } from "@/app/_components/BasicButton";
@@ -35,6 +35,12 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
       content: newContent
     }));
   }
+  const handleChecked = () => {
+    setData(updateCell(data,cell.id,{
+      ...cell,
+      simplifiedVersion: !cell.simplifiedVersion
+    }));
+  }
 
   return(
     <Dialog open={open} onOpenChange={setOpen}>
@@ -43,7 +49,16 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
           <DialogTitle className="text-center">編輯儲存格</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-3 pt-3">
-          <div className="text-sm font-semibold">儲存格類型：{cell && cell.type}</div>
+          <div className="flex gap-6 text-sm font-semibold">
+            <div>儲存格類型：{cell && cell.type}</div>
+            <div className="flex gap-1">
+              <input type="checkbox" 
+                onChange={()=>handleChecked()}
+                checked={cell.simplifiedVersion}
+              />
+              <div >精簡版</div>
+            </div>
+          </div>
           {textareaType.includes(cell.type) && <Textarea
             placeholder={"請輸入"+(cell.type==="文字"?"該儲存格":(cell.type==="自由填答"?"題示":cell?.type))+"文字"}
             className="resize-none"
