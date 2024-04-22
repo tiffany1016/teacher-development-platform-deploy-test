@@ -78,8 +78,8 @@ export default function IDPEdit(){
       <div className="grid justify-center mt-14 mb-5">
         <p className="text-3xl text-[#013E6E]">IDP教師自我檢核</p>
       </div>
-      <div className="flex justify-start w-full">
-        <div className="flex gap-3 pb-4 w-full">
+      <div className="flex justify-end w-full">
+        {!preview && <div className="flex gap-3 pb-4 w-full h-fit">
           <div className="flex gap-0.5"> 
             <BasicButton text="插入 列" onClick={()=>{setData(addRow(data,selected))}} />
             <BasicButton text="/欄" />
@@ -103,11 +103,11 @@ export default function IDPEdit(){
           <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
           <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
           <BasicButton text="console.log" onClick={()=>{console.log(data)}} />
-        </div>
-        <div className="flex gap-3 pb-4 w-fit text-nowrap">
-          <BasicButton text="簡易版" onClick={()=>{handleCombine()}} />
-          <BasicButton text="完整版" onClick={()=>{handleCombine()}} />
-          <BasicButton text="編輯" onClick={()=>{handleCombine()}} />
+        </div>}
+        <div className="flex gap-2 pb-4 w-fit text-nowrap">
+          <BasicButton text="簡易版" dark={true} size={16} height="30px" width="80px" onClick={()=>{}} />
+          <BasicButton text="完整版" dark={true} size={16} height="30px" width="80px" onClick={()=>{setPreview(true)}} />
+          {preview && <BasicButton text="編輯" dark={true} size={16} height="30px" width="65px" onClick={()=>{setPreview(false)}} />}
         </div>
       </div>
       
