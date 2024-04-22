@@ -79,7 +79,7 @@ export default function IDPEdit(){
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
-        <p className="text-3xl text-[#013E6E]">IDP</p>
+        <p className="text-3xl text-[#013E6E]">IDP教師自我檢核</p>
       </div>
       <div className="flex justify-center gap-2 pb-2">
         <div className="flex gap-0.5"> 
@@ -96,57 +96,60 @@ export default function IDPEdit(){
         <table className="w-full">
           <tbody>
             {data.length>0 && data.map((row,i)=>(
-              <tr key={"row"+i}>
-                {row.length>0 && row.map((cell,j)=>(
-                  (cell.type!=="null" && <td key={"cell"+j} 
-                    className="px-2 py-1 justify-self-center" 
-                    style={{
-                      border: "2px solid white",
-                      borderTopRightRadius: (cell.type==="段落標題"?"10px":"0px"),
-                      borderTopLeftRadius: (cell.type==="段落標題"?"10px":"0px"),
-                      backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
-                    }}
-                      colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
-                      rowSpan={parseInt(cell.rowSpan)}
-                    >
-                    <div className="flex items-center gap-2">
-                      {cell.type!=="段落標題" && <div className="flex">
-                        <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
-                        <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
-                          {type.map((t,k) => (
-                            <option key={"type"+k} value={t}>{t}</option>
-                          ))}
-                        </select>
-                      </div>}
-                      <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
-                        <Pencil size={11} color="#9c9c9c" />
-                      </div>
-                      <div className="w-full" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
-                        {/* 段落標題|文字|自由填答|單選題|多選題|勾選題|null */}
-                        {textType.includes(cell.type) && <div className="flex gap-1">
-                          {cell.type==="勾選題" && <input type="checkbox"/>}
-                          {cell.content}
+              <>
+                {/* 每個段落(section)前要留白 */}
+                {row[0].type==="段落標題" && i>0 && <tr><td style={{height: "15px"}}></td></tr>}
+                <tr key={"row"+i}>
+                  {row.length>0 && row.map((cell,j)=>(
+                    (cell.type!=="null" && <td key={"cell"+j} 
+                      className="px-2 py-1 justify-self-center" 
+                      style={{
+                        border: "2px solid white",
+                        borderTopRightRadius: (cell.type==="段落標題"?"10px":"0px"),
+                        borderTopLeftRadius: (cell.type==="段落標題"?"10px":"0px"),
+                        backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
+                      }}
+                        colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
+                        rowSpan={parseInt(cell.rowSpan)}
+                      >
+                      <div className="flex items-center gap-2">
+                        {cell.type!=="段落標題" && !preview && <div className="flex"> {/* 若為"段落標題"or"預覽模式"，不顯示編輯類別選單"， */}
+                          <input type="checkbox" checked={selected.includes(cell.id)} onChange={() => handleCheck(cell.id)} />
+                          <select style={{fontSize: "12px"}} value={cell.type} onChange={(e)=> handleSelect(e.target.value,cell) }>
+                            {type.map((t,k) => (
+                              <option key={"type"+k} value={t}>{t}</option>
+                            ))}
+                          </select>
                         </div>}
-                        {selectType.includes(cell.type) && JSON.parse(cell.content).length>0 && 
-                          <Select>
-                            <SelectTrigger className="max-w-max h-min py-1 min-w-full">
-                              <SelectValue placeholder={JSON.parse(cell.content)[0]??""} />
-                            </SelectTrigger>
-                            <SelectContent className="break-all max-w-screen-sm">
-                              {JSON.parse(cell.content).map((option:string,i:number)=>(
-                                <>
-                                  {option!=="" && <SelectItem key={"option"+i} value={option}>{option}</SelectItem>}
-                                </>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        }
-                        {cell.type==="自由填答" && <Textarea className="w-full py-1 px-1" style={{height:"32px"}} placeholder={cell.content} />}
+                        {!preview && <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
+                          <Pencil size={11} color="#9c9c9c" /> {/* 編輯icon */}
+                        </div>}
+                        <div className="w-full" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                          {textType.includes(cell.type) && <div className="flex gap-1">
+                            {cell.type==="勾選題" && <input type="checkbox"/>}
+                            {cell.content}
+                          </div>}
+                          {selectType.includes(cell.type) && JSON.parse(cell.content).length>0 && 
+                            <Select>
+                              <SelectTrigger className="max-w-max h-min py-1 min-w-full">
+                                <SelectValue placeholder={JSON.parse(cell.content)[0]??""} />
+                              </SelectTrigger>
+                              <SelectContent className="break-all max-w-screen-sm">
+                                {JSON.parse(cell.content).map((option:string,i:number)=>(
+                                  <>
+                                    {option!=="" && <SelectItem key={"option"+i} value={option}>{option}</SelectItem>}
+                                  </>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          }
+                          {cell.type==="自由填答" && <Textarea className="w-full py-1 px-1" style={{height:"32px"}} placeholder={cell.content} />}
+                        </div>
                       </div>
-                    </div>
-                  </td>)
-                ))}
-              </tr>
+                    </td>)
+                  ))}
+                </tr>
+              </>
             ))}
           </tbody>
         </table>
