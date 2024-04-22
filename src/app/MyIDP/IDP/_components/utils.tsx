@@ -191,7 +191,7 @@ export function setToNullThenSpan(data:Cell[][], rowSpan: number,colSpan: number
         ))
     ));
 }
-function getIndexes(data:Cell[][],ids:string[]) {
+export function getIndexes(data:Cell[][],ids:string[]) {
     let indexes:cellIndex[] = [];
     let minI = data.length, maxI = 0;
     let minJ = data.length, maxJ = 0; 

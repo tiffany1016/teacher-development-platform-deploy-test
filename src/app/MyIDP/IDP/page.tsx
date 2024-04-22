@@ -1,7 +1,7 @@
 'use client'
 import { INDIGO, INDIGO_1,  LIGHT_GREY } from "@/lib/constants";
 import { useState } from "react";
-import { newSection, Cell, addRow, updateCell, checkInARange, setToNullThenSpan } from "./_components/utils";
+import { newSection, Cell, addRow, updateCell, checkInARange, setToNullThenSpan, getIndexes } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
@@ -73,6 +73,17 @@ export default function IDPEdit(){
     handleCheck("none");
     setData(setToNullThenSpan(data, rowSpan,colSpan,leftTopIndex));
   }
+  const handleColor = (newColor:string) => {
+    if (selected.length > 1 || selected.length === 0) {
+      alert("請選擇一個要更改顏色的儲存格")
+      return;
+    }
+    const {indexes} = getIndexes(data,selected);
+    setData(updateCell(data,selected[0],{
+      ...data[indexes[0].i][indexes[0].j],
+      color: newColor,
+    }));
+  }
   return(
     <div className="grid h-full p-16">
       <div className="grid justify-center mt-14 mb-5">
@@ -96,8 +107,8 @@ export default function IDPEdit(){
             <BasicButton text="B" onClick={()=>{}} />
           </div>
           <div className="flex gap-0.5"> 
-            <BasicButton text="深" onClick={()=>{}} />
-            <BasicButton text="淺" onClick={()=>{}} />
+            <BasicButton text="深" onClick={()=>{handleColor("dark")}} />
+            <BasicButton text="淺" onClick={()=>{handleColor("light")}} />
           </div>
           <BasicButton text="合併" onClick={()=>{handleCombine()}} />
           <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
