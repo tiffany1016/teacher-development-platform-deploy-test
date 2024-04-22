@@ -12,6 +12,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 import { Textarea } from "@/components/ui/textarea";
         
@@ -154,7 +160,7 @@ export default function IDPEdit(){
                         {!preview && <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
                           <Pencil size={11} color="#9c9c9c" /> {/* 編輯icon */}
                         </div>}
-                        <div className="w-full" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                        <div className="w-full flex" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
                           {textType.includes(cell.type) && <div className="flex gap-1">
                             {cell.type==="勾選題" && <input type="checkbox"/>}
                             {cell.content}
@@ -174,6 +180,22 @@ export default function IDPEdit(){
                             </Select>
                           }
                           {cell.type==="自由填答" && <Textarea className="w-full py-1 px-1" style={{height:"32px"}} placeholder={cell.content} />}
+                          {cell.more!=="" && <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="text-xs underline pl-1 pt-1" style={{color:INDIGO}}>更多</TooltipTrigger>
+                              <TooltipContent className="bg-white opacity-95 border-2 text-current">
+                                <p>{cell.more}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>}
+                          {cell.history && <TooltipProvider>
+                            <Tooltip>
+                              <TooltipTrigger className="text-xs underline pl-1 pt-1" style={{color:INDIGO}}>歷史填答</TooltipTrigger>
+                              {/* <TooltipContent className="bg-white opacity-90 border-2 text-current">
+                                <p>{cell.history}</p>
+                              </TooltipContent> */}
+                            </Tooltip>
+                          </TooltipProvider>}
                         </div>
                       </div>
                     </td>)

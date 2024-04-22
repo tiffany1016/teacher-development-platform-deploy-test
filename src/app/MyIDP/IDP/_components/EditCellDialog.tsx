@@ -6,6 +6,7 @@ import { BasicButton } from "@/app/_components/BasicButton";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea"
 import { Trash } from "react-flaticons";
+import { Label } from "@/components/ui/label";
 
 type Props = {
   data: Cell[][];
@@ -43,6 +44,18 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
       simplifiedVersion: !cell.simplifiedVersion
     }));
   }
+  const handleViewMore = (newMore:string) => {
+    setData(updateCell(data,cell.id,{
+      ...cell,
+      more: newMore
+    }));
+  }
+  const handleHistoryData = (history:string) => {
+    setData(updateCell(data,cell.id,{
+      ...cell,
+      history: history
+    }));
+  }
 
   return(
     <Dialog open={open} onOpenChange={setOpen}>
@@ -63,14 +76,20 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
             </div>
             <div className="flex gap-1">
               <input type="checkbox" 
-                onChange={()=>{setViewMore(!viewMore)}}
+                onChange={()=>{
+                  handleViewMore("")
+                  setViewMore(!viewMore)
+                }}
                 checked={viewMore}
               />
               <div >顯示更多</div>
             </div>
             <div className="flex gap-1">
               <input type="checkbox" 
-                onChange={()=>{setHistoryData(!historyData)}}
+                onChange={()=>{
+                  handleHistoryData(historyData?"":"歷史")
+                  setHistoryData(!historyData)
+                }}
                 checked={historyData}
               />
               <div >歷史填答</div>
@@ -93,6 +112,15 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
               ))}
             </div>
             <BasicButton text="新增選項" onClick={()=>handleOptionUpdate(0,"","new")} />
+          </div>}
+          {viewMore && <div className="flex text-nowrap gap-2">
+            <div className="flex gap-6 text-sm font-semibold">更多</div>
+            <Textarea
+              placeholder={"請輸入要顯示的文字"}
+              className="resize-none"
+              onChange={(e)=>handleViewMore(e.target.value)}
+              value={cell.more}
+            />
           </div>}
         </div>
         <DialogFooter className="items-center">
