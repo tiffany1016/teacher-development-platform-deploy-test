@@ -20,10 +20,11 @@ import {
 } from "@/components/ui/tooltip"
 
 import { Textarea } from "@/components/ui/textarea";
+import { data1 } from "./_components/data";
         
 
 export default function IDPEdit(){
-  const [data,setData] = useState<Cell[][]>([]);
+  const [data,setData] = useState<Cell[][]>(data1);
   const [selected,setSelected] = useState<string[]>([]);
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
   const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
@@ -144,6 +145,7 @@ export default function IDPEdit(){
                         borderTopRightRadius: (cell.type==="段落標題"?"10px":"0px"),
                         borderTopLeftRadius: (cell.type==="段落標題"?"10px":"0px"),
                         backgroundColor: selected.includes(cell.id)?(cell.color==="dark"?INDIGO_1:"white"):(cell.color==="dark"?INDIGO:LIGHT_GREY),
+                        width: "25%"
                       }}
                         colSpan={cell.colSpan==="full"?data[0].length:parseInt(cell.colSpan)} 
                         rowSpan={parseInt(cell.rowSpan)}
@@ -160,14 +162,15 @@ export default function IDPEdit(){
                         {!preview && <div className="rounded-full cursor-pointer hover:bg-neutral-200" onClick={()=>handleEdit(i,j)}>
                           <Pencil size={11} color="#9c9c9c" /> {/* 編輯icon */}
                         </div>}
-                        <div className="w-full flex" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
+                        <div className="w-full" style={{color: (cell.color==="dark"?"white":"black"), fontSize: cell.size}}>
                           {textType.includes(cell.type) && <div className="flex gap-1">
                             {cell.type==="勾選題" && <input type="checkbox"/>}
                             {cell.content}
                           </div>}
                           {selectType.includes(cell.type) && JSON.parse(cell.content).length>0 && 
                             <Select>
-                              <SelectTrigger className="max-w-max h-min py-1 min-w-full">
+                              {/* <SelectTrigger className="max-w-max h-min py-1 min-w-full"> */}
+                              <SelectTrigger className="h-min py-1" style={{width: preview?"16rem":"10rem"}}>
                                 <SelectValue placeholder={JSON.parse(cell.content)[0]??""} />
                               </SelectTrigger>
                               <SelectContent className="break-all max-w-screen-sm">
@@ -182,18 +185,18 @@ export default function IDPEdit(){
                           {cell.type==="自由填答" && <Textarea className="w-full py-1 px-1" style={{height:"32px"}} placeholder={cell.content} />}
                           {cell.more!=="" && <TooltipProvider>
                             <Tooltip>
-                              <TooltipTrigger className="text-xs underline pl-1 pt-1" style={{color:INDIGO}}>更多</TooltipTrigger>
-                              <TooltipContent className="bg-white opacity-95 border-2 text-current">
+                              <TooltipTrigger className="text-xs underline pl-1 pt-1 text-wrap" style={{color:INDIGO}}>更多</TooltipTrigger>
+                              <TooltipContent className="bg-white opacity-95 border-2 text-current w-40">
                                 <p>{cell.more}</p>
                               </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>}
                           {cell.history && <TooltipProvider>
                             <Tooltip>
-                              <TooltipTrigger className="text-xs underline pl-1 pt-1" style={{color:INDIGO}}>歷史填答</TooltipTrigger>
-                              {/* <TooltipContent className="bg-white opacity-90 border-2 text-current">
+                              <TooltipTrigger className="text-xs underline pl-1 pt-1 text-wrap" style={{color:INDIGO}}>歷史填答</TooltipTrigger>
+                              <TooltipContent className="bg-white opacity-95 border-2 text-current w-40">
                                 <p>{cell.history}</p>
-                              </TooltipContent> */}
+                              </TooltipContent>
                             </Tooltip>
                           </TooltipProvider>}
                         </div>

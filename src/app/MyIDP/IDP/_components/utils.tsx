@@ -111,7 +111,6 @@ export function delCol(data:Cell[][], selected:string[]) {
     return data;
 }
 export function updateCell(data:Cell[][], id:string, newCell:Cell) {
-    console.log(newCell);
     return data.map((row)=>(
         row.map((cell) => (
         cell.id === id ? newCell : {...cell}
@@ -139,7 +138,6 @@ export function checkInARange(data:Cell[][],ids:string[]) {
     const {indexes, minI, maxI, minJ, maxJ} = getIndexes(data,ids);
     let inARange = true;
     let error = "";
-    console.log(getIndexes(data,ids));
     for (let i=minI; i<=maxI; i++) {
         for (let j=minJ; j<=maxJ; j++) {
             if (!ids.includes(data[i][j].id)) {

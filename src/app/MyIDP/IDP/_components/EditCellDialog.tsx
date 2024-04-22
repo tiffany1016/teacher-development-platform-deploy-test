@@ -20,7 +20,12 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
   const textareaType = ["段落標題","文字","自由填答","勾選題"];
   const [viewMore,setViewMore] = useState(false);
   const [historyData,setHistoryData] = useState(false);
-
+  useEffect(()=>{
+    if(open) {
+      setViewMore(cell.more!=="")
+      setHistoryData(cell.history!=="")
+    }
+  },[open])
   const handleOptionUpdate = (i:number,newOption:string,cmd:string) => { // cmd: new|update|delete
     const content = JSON.parse(cell.content);
     const newContent:string[] = (cmd === "new") ? [...content,newOption] : //add new option
