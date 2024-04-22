@@ -1,8 +1,7 @@
 'use client'
-import {Button} from "@/components/ui/button";
-import { INDIGO, INDIGO_1, LIGHT_BLUE, LIGHT_GREY } from "@/lib/constants";
-import { useEffect, useState } from "react";
-import { newSection, Cell, addRow, updateCell, initCell, checkInARange, setToNullThenSpan } from "./_components/utils";
+import { INDIGO, INDIGO_1,  LIGHT_GREY } from "@/lib/constants";
+import { useState } from "react";
+import { newSection, Cell, addRow, updateCell, checkInARange, setToNullThenSpan } from "./_components/utils";
 import { BasicButton } from "@/app/_components/BasicButton";
 import { Pencil } from "react-flaticons";
 import EditCellDialog from "./_components/EditCellDialog";
@@ -14,8 +13,6 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-import { MultiSelect } from 'primereact/multiselect';
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
         
 
@@ -24,7 +21,7 @@ export default function IDPEdit(){
   const [selected,setSelected] = useState<string[]>([]);
   const [editCellDialogOpen,setEditCellDialogOpen] = useState(false);
   const [editCellIndex,setEditCellIndex] = useState<number[]>([0,0]);
-  const [preview,setPreview] = useState(false);
+  const [preview,setPreview] = useState(true);
   const type = ["文字","自由填答","單選題","勾選題"];
   const textType = ["段落標題","文字","勾選題"];
   const selectType = ["單選題"];
@@ -81,17 +78,39 @@ export default function IDPEdit(){
       <div className="grid justify-center mt-14 mb-5">
         <p className="text-3xl text-[#013E6E]">IDP教師自我檢核</p>
       </div>
-      <div className="flex justify-center gap-2 pb-2">
-        <div className="flex gap-0.5"> 
-          <BasicButton text="插入 列" onClick={()=>{setData(addRow(data,selected))}} />
-          <BasicButton text="/欄" />
-          <BasicButton text="/段落" onClick={()=>{setData(newSection(data,selected))}} />
+      <div className="flex justify-start w-full">
+        <div className="flex gap-3 pb-4 w-full">
+          <div className="flex gap-0.5"> 
+            <BasicButton text="插入 列" onClick={()=>{setData(addRow(data,selected))}} />
+            <BasicButton text="/欄" />
+            <BasicButton text="/段落" onClick={()=>{setData(newSection(data,selected))}} />
+          </div>
+          <div className="flex gap-0.5"> 
+            <BasicButton text="刪除 列" onClick={()=>{}} />
+            <BasicButton text="/欄" />
+            <BasicButton text="/段落" onClick={()=>{}} />
+          </div>
+          <div className="flex gap-0.5"> 
+            <BasicButton text="A+" onClick={()=>{}} />
+            <BasicButton text="A-" onClick={()=>{}} />
+            <BasicButton text="B" onClick={()=>{}} />
+          </div>
+          <div className="flex gap-0.5"> 
+            <BasicButton text="深" onClick={()=>{}} />
+            <BasicButton text="淺" onClick={()=>{}} />
+          </div>
+          <BasicButton text="合併" onClick={()=>{handleCombine()}} />
+          <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
+          <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
+          <BasicButton text="console.log" onClick={()=>{console.log(data)}} />
         </div>
-        <BasicButton text="合併" onClick={()=>{handleCombine()}} />
-        <BasicButton text="全選" onClick={()=>{handleCheck("all")}} />
-        <BasicButton text="取消選擇" onClick={()=>{handleCheck("none")}} />
-        <BasicButton text="console.log" onClick={()=>{console.log(data)}} />
+        <div className="flex gap-3 pb-4 w-fit text-nowrap">
+          <BasicButton text="簡易版" onClick={()=>{handleCombine()}} />
+          <BasicButton text="完整版" onClick={()=>{handleCombine()}} />
+          <BasicButton text="編輯" onClick={()=>{handleCombine()}} />
+        </div>
       </div>
+      
       <div className="overflow-x-auto" style={{width:"100%"}}>
         <table className="w-full">
           <tbody>

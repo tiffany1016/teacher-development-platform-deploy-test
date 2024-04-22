@@ -17,6 +17,8 @@ type Props = {
 
 function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
   const textareaType = ["段落標題","文字","自由填答","勾選題"];
+  const [viewMore,setViewMore] = useState(false);
+  const [historyData,setHistoryData] = useState(false);
 
   const handleOptionUpdate = (i:number,newOption:string,cmd:string) => { // cmd: new|update|delete
     const content = JSON.parse(cell.content);
@@ -35,7 +37,7 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
       content: newContent
     }));
   }
-  const handleChecked = () => {
+  const handleSimplified = () => {
     setData(updateCell(data,cell.id,{
       ...cell,
       simplifiedVersion: !cell.simplifiedVersion
@@ -51,12 +53,27 @@ function EditCellDialog({data,cell,open,setOpen,setData}:Props) {
         <div className="flex flex-col gap-3 pt-3">
           <div className="flex gap-6 text-sm font-semibold">
             <div>儲存格類型：{cell && cell.type}</div>
+            {/* TBD add new component */}
             <div className="flex gap-1">
               <input type="checkbox" 
-                onChange={()=>handleChecked()}
+                onChange={()=>handleSimplified()}
                 checked={cell.simplifiedVersion}
               />
               <div >精簡版</div>
+            </div>
+            <div className="flex gap-1">
+              <input type="checkbox" 
+                onChange={()=>{setViewMore(!viewMore)}}
+                checked={viewMore}
+              />
+              <div >顯示更多</div>
+            </div>
+            <div className="flex gap-1">
+              <input type="checkbox" 
+                onChange={()=>{setHistoryData(!historyData)}}
+                checked={historyData}
+              />
+              <div >歷史填答</div>
             </div>
           </div>
           {textareaType.includes(cell.type) && <Textarea
