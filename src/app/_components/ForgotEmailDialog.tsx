@@ -11,23 +11,28 @@ import { Input } from "@/components/ui/input"
 import { publicEnv } from "@/lib/env/public";
 import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
-import { INDIGO, ORANGE, USERS } from "@/lib/constants";
-
+import { INDIGO, ORANGE, /*USERS*/ } from "@/lib/constants";
+import useUsers from "@/app/hooks/useUsers";
 function ForgotEmailDialog() {
   const [userMobile, setUserMobile] = useState<string>("");
   const [hint, setHint] = useState<string>("");
-
-  const handleSubmit = () => {
-    const userIndex = USERS.findIndex(({ mobile }) => mobile === userMobile);
-    const existedUser = userIndex !== -1;
-    if (!existedUser) {
+  const {getUser}=useUsers();
+  const handleSubmit = async() => {
+    // const userIndex = USERS.findIndex(({ mobile }) => mobile === userMobile);
+    const user=await getUser({
+      mobile:userMobile,
+    });
+    const existedUser = user!==null;
+    if (!user) {
       setHint("手機號碼錯誤");
       console.log("invalid phone number");
       return;
     }
-    const email = USERS[userIndex].email;
+    console.log(user);
+    const email = user.email;
+    
     const accountLength = email.split("@")[0].length;
-    setHint("您的帳號為 "+email.substring(0,2)+"*".repeat(accountLength-4)+email.substring(accountLength-2));
+    setHint("您的帳號為 "+email.substring(0,1)+"*".repeat(accountLength-3)+email.substring(accountLength-2));
   };
 
   return(

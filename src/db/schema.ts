@@ -16,7 +16,7 @@ export const usersTable = pgTable("users",{
     displayId: uuid("display_id").defaultRandom().notNull().unique(),
     username: varchar("username", { length: 100 }).notNull().unique(),
     email: varchar("email", { length: 100 }).notNull().unique(),
-    phoneNumber: varchar("phoneNumber", { length: 100 }).notNull(),
+    mobile: varchar("phoneNumber", { length: 100 }).notNull(),
     authority:char("authority").notNull().default('A'),
     disable:boolean("disable").notNull().default(false),
     // experience:json("experience").$type<{
@@ -36,7 +36,7 @@ export const usersTable = pgTable("users",{
       role:[],
       feature:[],}))
       .notNull(),
-    hashedPassword: varchar("hashed_password", { length: 100 }),
+    hashedPassword: varchar("hashed_password", { length: 100 }).notNull(),
     provider: varchar("provider", {
       length: 100,
       enum: ["github", "credentials"],
@@ -47,7 +47,7 @@ export const usersTable = pgTable("users",{
   (table) => ({
     displayIdIndexOfUsers: index("display_id_index_of_users").on(table.displayId),
     emailIndex: index("email_index").on(table.email),
-    phoneIndex:index("phone_index").on(table.phoneNumber),
+    phoneIndex:index("phone_index").on(table.mobile),
   }),
 );
 export const usersRelations = relations(usersTable, ({ many }) => ({
@@ -62,7 +62,8 @@ export const courseTable= pgTable("course",{
     courseId:varchar("courseId").notNull().unique(),
     name:varchar("name",{length:100}).notNull(),
     teacherId:uuid("teacherId").references(()=>usersTable.displayId,{
-      onUpdate: 'cascade'
+      onUpdate: 'cascade',
+      onDelete:'cascade',
     }),
     typeId:varchar("typeId").notNull().references(()=>courseMapTable.id,{
       onDelete: 'cascade',

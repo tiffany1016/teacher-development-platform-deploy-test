@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 // import Resizer from "react-image-file-resizer";
-import { INDIGO, PINK, USERS } from "@/lib/constants";
+import { INDIGO, PINK,USERS } from "@/lib/constants";
 import { useSession } from "next-auth/react";
 
 export default function ChangePasswordDialog() {

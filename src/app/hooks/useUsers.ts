@@ -1,9 +1,61 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
+import useSWR from 'swr';
 export default function useUsers() {
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
   const router = useRouter();
+  
+  const getUser = async({
+    email,
+    mobile,
+  }:{
+    email?:string,
+    mobile?:string,
+  })=>{
+    setLoading(true);
+    let queryParam = email ? `email=${encodeURIComponent(email)}` : `mobile=${encodeURIComponent(mobile!)}`;
+    const res=await fetch(`/api/users?${queryParam}`,{
+      method: "GET",
+    })
+    .then(res => {
+      if (!res.ok) { // Check if the response status code is not okay
+        console.error('Server responded with a non-200 status:', res.status);
+        return res.text().then(text => { throw new Error(text) }); // Throw an error with the response text (or part of it)
+      }
+      return res.json(); // Parse JSON only if response is okay
+    })
+    .then((data) => {
+      setData(data);
+      setLoading(false);
+      return data;
+    })
+    return res;
+  };
+  // const getUserByMobile = async({
+  //   mobile,
+  // }:{
+  //   mobile:string,
+  // })=>{
+  //   setLoading(true);
+    
+  //   const res=await fetch(`/api/users`,{
+  //     method: "GET",
+  //   })
+  //   .then(res => {
+  //     if (!res.ok) { // Check if the response status code is not okay
+  //       console.error('Server responded with a non-200 status:', res.status);
+  //       return res.text().then(text => { throw new Error(text) }); // Throw an error with the response text (or part of it)
+  //     }
+  //     return res.json(); // Parse JSON only if response is okay
+  //   })
+  //   .then((data) => {
+  //     setData(data);
+  //     setLoading(false);
+  //     return data;
+  //   })
+  //   return res;
+  // };
   const postUser = async ({
     username,
     email,
@@ -21,7 +73,7 @@ export default function useUsers() {
       body: JSON.stringify({
         username,
         email,
-        phoneNumber,
+        mobile:phoneNumber,
         hashedPassword,
       }),
     });
@@ -87,6 +139,8 @@ export default function useUsers() {
   };
 
   return {
+    getUser,
+    // getUserByMobile,
     postUser,
     updateUser,
     loading,

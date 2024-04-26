@@ -11,10 +11,11 @@ import { Input } from "@/components/ui/input"
 import { publicEnv } from "@/lib/env/public";
 import AuthInput from "./AuthInput";
 import { MdLogin } from "react-icons/md";
-import { GREEN, INDIGO, ORANGE, PINK, USERS } from "@/lib/constants";
+import { GREEN, INDIGO, ORANGE, PINK,/* USERS*/ } from "@/lib/constants";
 import { auth } from "@/lib/auth";
 import { generateCode } from "@/lib/utils";
-
+import useUsers from "@/app/hooks/useUsers";
+import useSWR, { Fetcher } from "swr";
 function ForgotPasswordDialog() {
   const [userEmail, setUserEmail] = useState<string>("");
   const [emailHint, setEmailHint] = useState<string>("");
@@ -29,11 +30,16 @@ function ForgotPasswordDialog() {
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>("");
   const [passwordHint, setPasswordHint] = useState<string>("");
+  const{getUser}=useUsers();
 
-
-  const handleGetCode = () => {
-    const userIndex = USERS.findIndex(({ email }) => email === userEmail);
-    if (userIndex === -1) {
+  const handleGetCode = async() => {
+    // const userIndex = USERS.findIndex(({ email }) => email === userEmail);
+    console.log(userEmail);
+    const user=await getUser({
+      email: userEmail,
+    });
+    console.log(user);
+    if (!user) {
       setEmailHint("此帳號無註冊");
       setGetCode(false);
       return;
@@ -55,13 +61,19 @@ function ForgotPasswordDialog() {
     setCodeHint("驗證成功");
     setVerified(true);
   };
-  const handleUpdatePassword = () => {
-    const userIndex = USERS.findIndex(({ email }) => email === userEmail);
+  const handleUpdatePassword = async() => {
+    const user=await getUser({
+      email: userEmail,
+    });
+    if(!user){
+      return;
+    }
+    console.log(user);
     if (newPassword !== confirmNewPassword) {
       setPasswordHint("密碼不一致");
       return;
     }
-    else if (newPassword === USERS[userIndex].mobile) {
+    else if (newPassword === user.mobile) {
       setPasswordHint("密碼與手機號碼相同");
       return;
     }

@@ -16,12 +16,15 @@ import ForgotPasswordDialog from "./ForgotPasswordDialog";
 function LoginDialog() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const [username, setUsername] =useState<string>("");
+  const [phoneNumber,setPhoneNumber] =useState<string>("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn("credentials", {
       email,
+      username,
       password,
+      mobile:phoneNumber,
       callbackUrl: `${publicEnv.NEXT_PUBLIC_BASE_URL}/AboutMe`,
     });
   };

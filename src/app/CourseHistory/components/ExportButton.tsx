@@ -1,10 +1,18 @@
 "use client";
 import {Button} from "@/components/ui/button";
 import { useRouter } from 'next/navigation';
+import useUsers from "@/app/hooks/useUsers";
 export default function CourseDialog() {
   const router=useRouter();
+  const {postUser}=useUsers();
   const handleClick=async()=>{
     console.log("redirect");
+    // await postUser({
+    //   username:"111",
+    //   email:"one@gmail.com",
+    //   phoneNumber:"091111111",
+    //   hashedPassword:"1234",
+    // });
     router.push("/CourseHistory/ExportHistory");
   }
   return (
