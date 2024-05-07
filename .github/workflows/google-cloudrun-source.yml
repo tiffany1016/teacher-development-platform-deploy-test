@@ -52,7 +52,7 @@ on:
 
 env:
   PROJECT_ID: tdp-deploy-test-1 # TODO: update Google Cloud project id
-  SERVICE: tdp-deploy-service-1 # TODO: update Cloud Run service name
+  SERVICE: tdp-deploy-service-2 # TODO: update Cloud Run service name
   REGION: asia-east1 # TODO: update Cloud Run service region
 
 jobs:
