@@ -51,9 +51,9 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_ID: tdp-deploy-tset-1 # TODO: update Google Cloud project id
+  PROJECT_ID: tdp-deploy-test-1 # TODO: update Google Cloud project id
   SERVICE: tdp-deploy-service-1 # TODO: update Cloud Run service name
-  REGION: us-east1 # TODO: update Cloud Run service region
+  REGION: us-central1 # TODO: update Cloud Run service region
 
 jobs:
   deploy:
@@ -79,7 +79,7 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.SA_KE }}'
+          credentials_json: '${{ secrets.SA_KEY }}'
 
       - name: Deploy to Cloud Run
         id: deploy
