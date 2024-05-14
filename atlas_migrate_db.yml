@@ -1,0 +1,64 @@
+name: Deploy Migrations
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: tdp-deploy-test-1
+  INSTANCE_CONNECTION_NAME: tdp-deploy-test-1:asia-east1:tdp-deploy-sql
+  DB_HOST: 127.0.0.1
+  DB_PORT: 3306
+  DB_NAME: teacher-development-platform
+  DB_USER: postgres
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+jobs:
+  deploy-migrations:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Download and install Atlas CLI
+        run: |
+          curl -sSf https://atlasgo.sh | sh -s -- -y
+
+      - name: Download wait-for-it.sh
+        run: |
+          wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
+          chmod +x wait-for-it.sh
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 416.0.0'
+
+      - name: Download Cloud SQL Proxy
+        run: |
+          wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+          chmod +x cloud_sql_proxy
+
+      - name: Start Cloud SQL Proxy
+        run: ./cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:3306 &
+
+      - name: Wait for Cloud SQL Proxy to Start
+        run: |
+          ./wait-for-it.sh $DB_HOST:$DB_PORT -s -t 10 -- echo "Cloud SQL Proxy is running"
+
+      - name: Deploy Migrations
+        run: |
+          echo -ne '\n' | atlas migrate apply   --url "mysql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME"   --dir file://migrations
+
+      - name: Stop Cloud SQL Proxy
+        run: kill $(ps aux | grep cloud_sql_proxy | grep -v grep | awk '{print $2}')
