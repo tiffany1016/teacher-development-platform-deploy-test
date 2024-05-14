@@ -36,8 +36,8 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v1'
         with:
-          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-          service_account: 'my-service-account@my-project.iam.gserviceaccount.com'
+          workload_identity_provider: 'projects/772358879833/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: '772358879833-compute@developer.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v1'
@@ -58,7 +58,7 @@ jobs:
 
       - name: Deploy Migrations
         run: |
-          echo -ne '\n' | atlas migrate apply   --url "mysql://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME"   --dir file://migrations
+          echo -ne '\n' | atlas migrate apply   --url "postgres://$DB_USER:$DB_PASSWORD@$DB_HOST:$DB_PORT/$DB_NAME"   --dir file://migrations
 
       - name: Stop Cloud SQL Proxy
         run: kill $(ps aux | grep cloud_sql_proxy | grep -v grep | awk '{print $2}')
