@@ -8,8 +8,8 @@ on:
 env:
   PROJECT_ID: tdp-deploy-test-1
   INSTANCE_CONNECTION_NAME: tdp-deploy-test-1:asia-east1:tdp-deploy-sql
-  DB_HOST: 127.0.0.1
-  DB_PORT: 3306
+  DB_HOST: 35.185.130.151
+  DB_PORT: 5432
   DB_NAME: teacher-development-platform
   DB_USER: postgres
   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
