@@ -56,7 +56,7 @@ jobs:
           chmod +x cloud_sql_proxy
 
       - name: Start Cloud SQL Proxy
-        run: ./cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:3306 &
+        run: ./cloud_sql_proxy -instances=$INSTANCE_CONNECTION_NAME=tcp:5432 &
 
       - name: Wait for Cloud SQL Proxy to Start
         run: |
